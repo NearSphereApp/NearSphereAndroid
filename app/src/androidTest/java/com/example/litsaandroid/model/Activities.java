@@ -9,6 +9,26 @@ public class Activities extends BaseObservable{
     private String description;
     private int price;
     private List<String> tag;
+    private String img;
+
+    public Activities() {
+    }
+
+    public Activities(String title, String description, int price, List<String> tag, String img) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.tag = tag;
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getTitle() {
         return title;
