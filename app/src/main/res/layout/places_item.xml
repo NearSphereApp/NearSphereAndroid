@@ -32,7 +32,8 @@
                 android:layout_height="70dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/test_image"/>
 
             <TextView
                 android:id="@+id/title"
