@@ -11,4 +11,8 @@
     <string name="books">Books</string>
     <string name="nightlife">Nightlife</string>
     <string name="what_are_your_interests">What are your interests?</string>
+    <string name="welcome">welcome</string>
+    <string name="add_email">Add email</string>
+    <string name="log_in">Log in</string>
+    <string name="create">Create</string>
 </resources>
