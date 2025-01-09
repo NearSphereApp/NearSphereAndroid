@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="redFlower">#931339</color>
+    <color name="blueSky">#7AD3D1</color>
 </resources>
