@@ -8,6 +8,7 @@
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:contentDescription="@string/welcome"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toTopOf="@+id/email"
     android:src="@drawable/welcome"
@@ -19,7 +20,7 @@
         android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:hint="Add email"
+        android:hint="@string/add_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textAlignment="center"
@@ -50,17 +51,19 @@
         app:layout_constraintBottom_toBottomOf="@id/createAccount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Log in"
+        android:text="@string/log_in"
+        android:backgroundTint="@color/bluewelcome"
         />
     <Button
         android:id="@+id/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/bluewelcome"
         app:layout_constraintTop_toBottomOf="@id/LogIn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Create"
+        android:text="@string/create"
         />
 
 
