@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="redFlower">#931339</color>
     <color name="blueSky">#7AD3D1</color>
+    <color name="selected">#F44336</color>
+    <color name="unselected">#FF000000</color>
+
+
 </resources>

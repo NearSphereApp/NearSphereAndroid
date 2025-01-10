@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:itemIconSize="40sp"
             app:menu="@menu/bottom_navigation_menu"
-            />
+            app:itemIconTint="@drawable/colourselector"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
