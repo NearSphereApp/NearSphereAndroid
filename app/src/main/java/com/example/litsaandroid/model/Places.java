@@ -4,17 +4,17 @@ import androidx.databinding.BaseObservable;
 
 import java.util.List;
 
-public class Activities extends BaseObservable{
+public class Places extends BaseObservable{
     private String title;
     private String description;
     private int price;
     private List<String> tag;
     private String img;
 
-    public Activities() {
+    public Places() {
     }
 
-    public Activities(String title, String description, int price, List<String> tag, String img) {
+    public Places(String title, String description, int price, List<String> tag, String img) {
         this.title = title;
         this.description = description;
         this.price = price;
