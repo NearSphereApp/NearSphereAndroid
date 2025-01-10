@@ -33,7 +33,7 @@
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/email"
             android:layout_marginTop="30sp"
-            android:hint="Enter password"
+            android:hint="@string/enter_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
