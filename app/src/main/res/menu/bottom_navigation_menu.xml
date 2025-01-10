@@ -12,5 +12,10 @@
             android:title="@string/favourites"
             android:icon="@drawable/ic_favourites_foreground"
             android:iconTint="@drawable/colourselector"/>
+            <item
+            android:id="@+id/user"
+            android:title="userinfo"
+            android:icon="@drawable/ic_user_foreground"
+            android:iconTint="@drawable/colourselector"/>
 
 </menu>
