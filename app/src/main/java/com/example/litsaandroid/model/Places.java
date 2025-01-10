@@ -8,17 +8,17 @@ public class Places extends BaseObservable{
     private String title;
     private String description;
     private int price;
-    private List<String> tag;
+    private List<String> keyWord;
     private String img;
 
     public Places() {
     }
 
-    public Places(String title, String description, int price, List<String> tag, String img) {
+    public Places(String title, String description, int price, List<String> keyWord, String img) {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.tag = tag;
+        this.keyWord = keyWord;
         this.img = img;
     }
 
@@ -54,11 +54,11 @@ public class Places extends BaseObservable{
         this.price = price;
     }
 
-    public List<String> getTag() {
-        return tag;
+    public List<String> getKeyWord() {
+        return keyWord;
     }
 
-    public void setTag(List<String> tag) {
-        this.tag = tag;
+    public void setKeyWord(List<String> keyWord) {
+        this.keyWord = keyWord;
     }
 }
