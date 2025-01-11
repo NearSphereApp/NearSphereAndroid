@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
 }
-
+plugins {
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+}
 android {
     namespace 'com.example.litsaandroid'
     compileSdk 34
@@ -39,6 +41,7 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.databinding.runtime
+    implementation libs.places
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
