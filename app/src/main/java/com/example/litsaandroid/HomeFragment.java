@@ -2,10 +2,13 @@ package com.example.litsaandroid;
 
 import static com.example.litsaandroid.R.id.CheckBoxArt;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +17,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TableLayout;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.dynamic.SupportFragmentWrapper;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -37,6 +47,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -48,6 +59,7 @@ public class HomeFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+
         CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
         booksCheck = view.findViewById(R.id.CheckBoxBooks);
         nightlifeCheck=view.findViewById(R.id.CheckBoxNight);
@@ -87,5 +99,29 @@ public class HomeFragment extends Fragment {
                     }
                 }
         );
+
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(List.of(Place.Field.ADDRESS_COMPONENTS));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                // TODO: Get info about the selected place.
+                Log.i("TAG", "Place: " + place.getAddressComponents());
+            }
+
+
+            @Override
+            public void onError(@NonNull Status status) {
+                // TODO: Handle the error.
+                Log.i("TAG", "An error occurred: " + status);
+            }
+        });
+
+
     }
 }
