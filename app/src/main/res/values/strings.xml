@@ -25,5 +25,6 @@
     <string name="please_add_your_email">please_add_your_email</string>
     <string name="enter_password">Enter password</string>
     <string name="confirm_password">confirm_password</string>
+    <string name="submit">Submit</string>
 
 </resources>
