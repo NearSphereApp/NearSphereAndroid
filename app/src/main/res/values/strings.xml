@@ -26,5 +26,8 @@
     <string name="enter_password">Enter password</string>
     <string name="confirm_password">confirm_password</string>
     <string name="submit">Submit</string>
+    <string name="title">title</string>
+    <string name="something_about_the_place">Something about the Place.</string>
+    <string name="show_average_price">show average price</string>
 
 </resources>
