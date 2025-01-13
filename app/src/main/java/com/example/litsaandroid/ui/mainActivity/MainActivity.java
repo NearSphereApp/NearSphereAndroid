@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         if (item.getItemId() == R.id.favourites) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main, favouritesFragment)
+                    .replace(R.id.flFragment, favouritesFragment)
                     .commit();
             return true;
         }
         if (item.getItemId() == R.id.user) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main, userInfoFragment)
+                    .replace(R.id.flFragment, userInfoFragment)
                     .commit();
             return true;
         }
