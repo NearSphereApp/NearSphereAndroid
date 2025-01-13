@@ -30,4 +30,9 @@
     <string name="something_about_the_place">Something about the Place.</string>
     <string name="show_average_price">show average price</string>
 
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="your_email_here">Your email here</string>
+    <string name="your_name_here">Your name here</string>
+    <string name="reset_password">Reset Password</string>
+
 </resources>
