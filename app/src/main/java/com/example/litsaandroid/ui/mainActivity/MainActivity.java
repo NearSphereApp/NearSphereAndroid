@@ -21,6 +21,8 @@ import com.example.litsaandroid.HomeFragment;
 import com.example.litsaandroid.PlacesFragment;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.UserInfoFragment;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
@@ -52,6 +54,13 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         String key = ai.metaData.getString("KEY");
         assert key != null;
         Log.i("TAG", key);
+        //initialise Places
+        Places.initializeWithNewPlacesApiEnabled(getApplicationContext(),key);
+        PlacesClient placesClient = Places.createClient(this);
+
+
+
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);

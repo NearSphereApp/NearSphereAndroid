@@ -42,6 +42,7 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.databinding.runtime
     implementation libs.places
+    implementation libs.play.services.basement
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

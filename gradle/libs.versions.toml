@@ -10,6 +10,7 @@ constraintlayout = "2.2.0"
 databindingRuntime = "8.7.3"
 secretsGradlePlugin = "2.0.1"
 places = "4.1.0"
+playServicesBasement = "18.5.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -22,6 +23,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
 secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 places = { group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
+play-services-basement = { group = "com.google.android.gms", name = "play-services-basement", version.ref = "playServicesBasement" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
