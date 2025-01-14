@@ -10,11 +10,6 @@
             type="com.example.litsaandroid.model.Places" />
     </data>
 
-    <data>
-        <variable
-            name="places"
-            type="com.example.litsaandroid.model.Places" />
-    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -51,13 +46,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ListView
+            <TextView
                 android:id="@+id/tag"
                 android:layout_width="50dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/cardview_dark_background"
-                android:text="@{Places.keyWord}"
+                android:text="@{Places.keyWord.toString()}"
                 android:textSize="15sp"
                 card_view:layout_constraintBottom_toTopOf="@id/price"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +69,7 @@
                 android:contentDescription="@string/show_average_price"
                 android:src="@drawable/ic_price_foreground"
                 android:textSize="15sp"
-                app:layout_constraintStart_tostartOf="@id/tag"
+                app:layout_constraintStart_toStartOf="@id/tag"
                 card_view:layout_constraintEnd_toEndOf="@id/tag"
                 app:layout_constraintTop_toBottomOf="@id/tag"
                 card_view:layout_constraintBottom_toBottomOf="parent"/>

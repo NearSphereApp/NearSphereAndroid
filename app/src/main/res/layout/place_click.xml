@@ -61,13 +61,13 @@
                 app:layout_constraintTop_toBottomOf="@id/floatingActionButtonFavourites"
                 />
 
-            <ListView
+            <TextView
                 android:id="@+id/tag"
                 android:layout_width="50dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/cardview_dark_background"
-                android:text="@{Places.keyWord}"
+                android:text="@{Places.keyWord.toString()}"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20sp"
