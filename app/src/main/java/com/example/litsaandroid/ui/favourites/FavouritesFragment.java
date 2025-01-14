@@ -1,37 +1,79 @@
-package com.example.litsaandroid;
+package com.example.litsaandroid.ui.favourites;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavouritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavouritesFragment extends Fragment {
+import com.example.litsaandroid.R;
+import com.example.litsaandroid.databinding.FragmentPlacesBinding;
+import com.example.litsaandroid.databinding.PlaceClickBinding;
+import com.example.litsaandroid.model.Places;
+import com.example.litsaandroid.ui.mainActivity.Adapter;
+import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
+import com.example.litsaandroid.ui.mainActivity.RecyclerViewInterface;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class FavouritesFragment extends Fragment implements RecyclerViewInterface {
+
+    private static final String PLACES_KEY = "places";
+    private RecyclerView recyclerView;
+    private ArrayList<Places> placesList;
+    private Adapter adapter;
+    private FragmentPlacesBinding binding;
+    private MainActivityViewModel mainActivityViewModel;
 
     public FavouritesFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourites, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favourites, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        displayInRecyclerView();
+        getFavouritePlaces();
+    }
+
+    private void getFavouritePlaces(){
+        mainActivityViewModel.getAllPlaces().observe(getViewLifecycleOwner(), new Observer<List<Places>>() {
+            @Override
+            public void onChanged(List<Places> places) {
+                placesList = (ArrayList<Places>) places;
+                displayInRecyclerView();
+            }
+            //Need some logic to check if added to favourites here
+        });
+    }
+    private void displayInRecyclerView(){
+        recyclerView = binding.recyclerview;
+        adapter = new Adapter(placesList, this.getContext(), this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }
