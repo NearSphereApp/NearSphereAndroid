@@ -26,6 +26,7 @@ import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,8 +43,22 @@ public class HomeFragment extends Fragment {
     private CheckBox spaCheck;
     private CheckBox footballCheck;
     private CheckBox allCheck;
-    private List<String> keyWord;
+    public List<String> keyWord;
+    public String address;
+    public double radius;
+    public Slider slider;
 
+    final Slider.OnSliderTouchListener touchListener =
+            new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(Slider slider) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(Slider slider) {
+                    radius = slider.getValue();
+                }
+            };
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -60,10 +75,14 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+
+        slider = view.findViewById(R.id.continuousSlider);
+        slider.addOnSliderTouchListener(touchListener);
 
 
             CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
@@ -181,6 +200,7 @@ public class HomeFragment extends Fragment {
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                autocompleteFragment.setText(place.getShortFormattedAddress());
+               address = place.getShortFormattedAddress();
             }
 
 
@@ -192,8 +212,10 @@ public class HomeFragment extends Fragment {
         });
 
 
+
         Button button = view.findViewById(R.id.submit_button);
         onSubmitButtonClicked(button);
+
     }
     public void onSubmitButtonClicked(View view){
         Intent intent = new Intent(view.getContext(), PlacesFragment.class);
