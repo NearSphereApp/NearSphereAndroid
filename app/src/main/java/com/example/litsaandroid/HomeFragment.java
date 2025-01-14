@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.dynamic.SupportFragmentWrapper;
@@ -60,58 +61,118 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
 
-        CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
-        booksCheck = view.findViewById(R.id.CheckBoxBooks);
-        nightlifeCheck=view.findViewById(R.id.CheckBoxNight);
-        natureCheck=view.findViewById(R.id.CheckBoxNature);
-        religionCheck=view.findViewById(R.id.CheckBoxReligion);
-        foodCheck=view.findViewById(R.id.CheckBoxFood);
-        spaCheck=view.findViewById(R.id.CheckBoxSpa);
-        footballCheck=view.findViewById(R.id.CheckBoxFootball);
-        allCheck=view.findViewById(R.id.CheckBoxALL);
 
-        TableLayout checkTable = view.findViewById(R.id.check_table);
+            CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
+            booksCheck = view.findViewById(R.id.CheckBoxBooks);
+            nightlifeCheck=view.findViewById(R.id.CheckBoxNight);
+            natureCheck=view.findViewById(R.id.CheckBoxNature);
+            religionCheck=view.findViewById(R.id.CheckBoxReligion);
+            foodCheck=view.findViewById(R.id.CheckBoxFood);
+            spaCheck=view.findViewById(R.id.CheckBoxSpa);
+            footballCheck=view.findViewById(R.id.CheckBoxFootball);
+            allCheck=view.findViewById(R.id.CheckBoxALL);
 
-        keyWord = new ArrayList<>();
+            TableLayout checkTable = view.findViewById(R.id.check_table);
 
-        artCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("art"));
-        booksCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("books"));
-        nightlifeCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("nightlife"));
-        natureCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("nature"));
-        religionCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("religion"));
-        foodCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("food"));
-        spaCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("spa"));
-        footballCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                keyWord.add("football"));
-        allCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
-                {
-                    for (int i = 0; i < checkTable.getChildCount(); i++) {
-                        if(checkTable.getChildAt(i) instanceof CheckBox){
-                            ((CheckBox) checkTable.getChildAt(i)).setChecked(isChecked);
+            keyWord = new ArrayList<>();
+
+            artCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("art");
+                } else {
+                    keyWord.remove("art");
+                }
+                Log.i("keywords", keyWord.toString());
+
+            });
+            booksCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("books");
+                } else {
+                    keyWord.remove("books");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            nightlifeCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("nightlife");
+                } else {
+                    keyWord.remove("nightlife");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            natureCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("nature");
+                } else {
+                    keyWord.remove("nature");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            religionCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("religion");
+                } else {
+                    keyWord.remove("religion");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            foodCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("food");
+                } else {
+                    keyWord.remove("food");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            spaCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("spa");
+                } else {
+                    keyWord.remove("spa");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            footballCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    keyWord.add("football");
+                } else {
+                    keyWord.remove("football");
+                }
+                Log.i("keywords", keyWord.toString());
+            });
+            allCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                for (int i = 0; i < checkTable.getChildCount(); i++) {
+                    View child = checkTable.getChildAt(i);
+
+                    if (child instanceof CheckBox) {
+                        ((CheckBox) child).setChecked(isChecked);
+                    }
+                    else if (child != null) {
+                        TableRow row = (TableRow) child;
+                        for (int j = 0; j < row.getChildCount(); j++) {
+                            View rowChild = row.getChildAt(j);
+                            if (rowChild instanceof CheckBox) {
+                                ((CheckBox) rowChild).setChecked(isChecked);
+                            }
                         }
                     }
                 }
-        );
+                Log.i("keywords", keyWord.toString());
+            });
 
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(List.of(Place.Field.ADDRESS_COMPONENTS));
+        autocompleteFragment.setPlaceFields(List.of(Place.Field.SHORT_FORMATTED_ADDRESS));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                Log.i("TAG", "Place: " + place.getAddressComponents());
+               autocompleteFragment.setText(place.getShortFormattedAddress());
             }
 
 
