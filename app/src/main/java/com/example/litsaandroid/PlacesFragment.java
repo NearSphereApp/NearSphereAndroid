@@ -1,5 +1,6 @@
 package com.example.litsaandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,14 +11,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.litsaandroid.databinding.ActivityMainBinding;
 import com.example.litsaandroid.databinding.FragmentPlacesBinding;
-import com.example.litsaandroid.databinding.PlacesItemBinding;
 import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.ui.mainActivity.Adapter;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
@@ -32,8 +30,11 @@ public class PlacesFragment extends Fragment implements RecyclerViewInterface {
     private ArrayList<Places> placesList;
     private Adapter adapter;
     private FragmentPlacesBinding binding;
-    private ActivityMainBinding activityMainBinding;
     private MainActivityViewModel mainActivityViewModel;
+
+    private static final String PLACES_KEY = "places";
+
+
 
     public PlacesFragment() {
         // Required empty public constructor
@@ -50,10 +51,12 @@ public class PlacesFragment extends Fragment implements RecyclerViewInterface {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        displayInRecyclerView();
+        getAllPlaces();
     }
 
     private void getAllPlaces(){
-    mainActivityViewModel.getAllPlaces().observe(this, new Observer<List<Places>>() {
+    mainActivityViewModel.getAllPlaces().observe(getViewLifecycleOwner(), new Observer<List<Places>>() {
         @Override
         public void onChanged(List<Places> places) {
             placesList = (ArrayList<Places>) places;
@@ -72,6 +75,8 @@ public class PlacesFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-
+    Intent intent = new Intent(this.getContext(), PlaceClickActivity.class);
+    intent.putExtra(PLACES_KEY, placesList.get(position));
+    startActivity(intent);
     }
 }

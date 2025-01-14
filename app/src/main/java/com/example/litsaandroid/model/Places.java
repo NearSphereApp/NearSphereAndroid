@@ -1,5 +1,9 @@
 package com.example.litsaandroid.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -7,7 +11,7 @@ import com.example.litsaandroid.BR;
 
 import java.util.List;
 
-public class Places extends BaseObservable{
+public class Places extends BaseObservable implements Parcelable {
     private int id;
     private String title;
     private String description;
@@ -27,6 +31,28 @@ public class Places extends BaseObservable{
         this.address = address;
     }
 
+
+    protected Places(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        address = in.readString();
+        price = in.readInt();
+        keyWord = in.createStringArrayList();
+        img = in.readString();
+    }
+
+    public static final Creator<Places> CREATOR = new Creator<Places>() {
+        @Override
+        public Places createFromParcel(Parcel in) {
+            return new Places(in);
+        }
+
+        @Override
+        public Places[] newArray(int size) {
+            return new Places[size];
+        }
+    };
 
     @Bindable
     public String getAddress() {
@@ -86,5 +112,21 @@ public class Places extends BaseObservable{
     public void setKeyWord(List<String> keyWord) {
         this.keyWord = keyWord;
         notifyPropertyChanged(BR.keyWord);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(address);
+        dest.writeInt(price);
+        dest.writeStringList(keyWord);
+        dest.writeString(img);
     }
 }
