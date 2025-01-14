@@ -99,7 +99,7 @@
                 android:id="@+id/CheckBoxArt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/art" />
+                android:text="@string/culture_entertainment" />
             <CheckBox
                 android:id="@+id/CheckBoxBooks"
                 android:layout_width="wrap_content"
@@ -139,12 +139,12 @@
                 android:id="@+id/CheckBoxSpa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/spa" />
+                android:text="@string/health_and_wellness" />
             <CheckBox
                 android:id="@+id/CheckBoxFootball"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/football" />
+                android:text="@string/sports" />
             <CheckBox
                 android:id="@+id/CheckBoxALL"
                 android:layout_width="wrap_content"
