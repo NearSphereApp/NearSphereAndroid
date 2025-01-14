@@ -2,6 +2,8 @@ package com.example.litsaandroid;
 
 import static com.example.litsaandroid.R.id.CheckBoxArt;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +31,7 @@ import com.google.android.material.slider.Slider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -97,9 +101,11 @@ public class HomeFragment extends Fragment {
 
             artCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    keyWord.add("art");
+                    keyWord.add("culture");
+                    keyWord.add("entertainment");
                 } else {
-                    keyWord.remove("art");
+                    keyWord.remove("culture");
+                    keyWord.remove("entertainment");
                 }
                 Log.i("keywords", keyWord.toString());
 
@@ -146,17 +152,19 @@ public class HomeFragment extends Fragment {
             });
             spaCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    keyWord.add("spa");
+                    keyWord.add("health");
+                    keyWord.add("wellness");
                 } else {
-                    keyWord.remove("spa");
+                    keyWord.remove("health");
+                    keyWord.remove("wellness");
                 }
                 Log.i("keywords", keyWord.toString());
             });
             footballCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    keyWord.add("football");
+                    keyWord.add("sports");
                 } else {
-                    keyWord.remove("football");
+                    keyWord.remove("sports");
                 }
                 Log.i("keywords", keyWord.toString());
             });
@@ -202,5 +210,16 @@ public class HomeFragment extends Fragment {
                 Log.i("TAG", "An error occurred: " + status);
             }
         });
+
+
+
+        Button button = view.findViewById(R.id.submit_button);
+        onSubmitButtonClicked(button);
+
     }
+    public void onSubmitButtonClicked(View view){
+        Intent intent = new Intent(view.getContext(), PlacesFragment.class);
+        requireContext().startActivity(intent);
+    }
+
 }
