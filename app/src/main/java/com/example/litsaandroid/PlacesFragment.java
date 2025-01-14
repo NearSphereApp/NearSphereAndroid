@@ -21,11 +21,12 @@ import com.example.litsaandroid.databinding.PlacesItemBinding;
 import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.ui.mainActivity.Adapter;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
+import com.example.litsaandroid.ui.mainActivity.RecyclerViewInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacesFragment extends Fragment {
+public class PlacesFragment extends Fragment implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private ArrayList<Places> placesList;
@@ -62,10 +63,15 @@ public class PlacesFragment extends Fragment {
     }
     private void displayInRecyclerView(){
        recyclerView = binding.recyclerview;
-       adapter = new Adapter(placesList, this.getContext());
+       adapter = new Adapter(placesList, this.getContext(), this);
        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
        recyclerView.setAdapter(adapter);
        recyclerView.setLayoutManager(layoutManager);
        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

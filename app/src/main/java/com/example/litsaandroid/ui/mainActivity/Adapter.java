@@ -21,9 +21,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     private List<Places> placesList;
     private Context context;
 
-    public Adapter(List<Places> placesList, Context context) {
+    private RecyclerViewInterface recyclerViewInterface;
+
+    public Adapter(List<Places> placesList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.placesList = placesList;
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
 
@@ -34,7 +37,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
                 R.layout.places_item,
                 parent,
                 false);
-        return new PlacesItemViewHolder(binding);
+        return new PlacesItemViewHolder(binding, recyclerViewInterface);
     }
 
     @Override
@@ -52,9 +55,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
 
         private PlacesItemBinding placesItemBinding;
 
-        public PlacesItemViewHolder(PlacesItemBinding placesItemBinding) {
+        public PlacesItemViewHolder(PlacesItemBinding placesItemBinding, RecyclerViewInterface recyclerViewInterface) {
             super(placesItemBinding.getRoot());
             this.placesItemBinding = placesItemBinding;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                if(recyclerViewInterface != null){
+                    int position = getBindingAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClick(position);
+                    }
+                }
+                }
+            });
         }
     }
 }
