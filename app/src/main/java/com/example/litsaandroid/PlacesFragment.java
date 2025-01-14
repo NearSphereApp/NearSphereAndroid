@@ -20,6 +20,7 @@ import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.ui.mainActivity.Adapter;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.example.litsaandroid.ui.mainActivity.RecyclerViewInterface;
+import com.example.litsaandroid.ui.placeclick.PlaceClickActivity;
 
 import java.util.ArrayList;
 import java.util.List;

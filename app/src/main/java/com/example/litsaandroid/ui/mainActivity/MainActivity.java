@@ -16,9 +16,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.litsaandroid.FavouritesFragment;
+import com.example.litsaandroid.ui.favourites.FavouritesFragment;
 import com.example.litsaandroid.HomeFragment;
-import com.example.litsaandroid.PlacesFragment;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.UserInfoFragment;
 import com.google.android.libraries.places.api.Places;

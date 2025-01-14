@@ -1,4 +1,4 @@
-package com.example.litsaandroid;
+package com.example.litsaandroid.ui.placeclick;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.litsaandroid.R;
 import com.example.litsaandroid.databinding.PlaceClickBinding;
 import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
