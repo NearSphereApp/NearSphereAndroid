@@ -8,6 +8,10 @@
         <variable
             name="Places"
             type="com.example.litsaandroid.model.Places" />
+
+        <variable
+            name="clickHandlers"
+            type="com.example.litsaandroid.ui.favourites.FavouritesClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,6 +93,7 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButtonFavourites"
+                android:onClick="@{clickHandlers::onClickFavouritesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
