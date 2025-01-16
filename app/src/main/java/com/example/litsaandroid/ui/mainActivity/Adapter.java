@@ -9,19 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.litsaandroid.PlacesFragment;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.databinding.PlacesItemBinding;
 import com.example.litsaandroid.model.Places;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> {
     private List<Places> placesList;
     private Context context;
 
-    private RecyclerViewInterface recyclerViewInterface;
+    private final RecyclerViewInterface recyclerViewInterface;
 
     public Adapter(List<Places> placesList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.placesList = placesList;
@@ -30,6 +28,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     }
 
 
+    @NonNull
     @Override
     public PlacesItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         PlacesItemBinding binding = DataBindingUtil.inflate(

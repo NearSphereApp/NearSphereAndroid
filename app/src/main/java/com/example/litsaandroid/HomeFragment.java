@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.example.litsaandroid.model.Places;
+import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.libraries.places.api.model.Place;
@@ -48,18 +51,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public String address;
     public double radius;
     public Slider slider;
+    public double latitude;
+    public double longitude;
+    Places placesModel = new Places();
+    MainActivityViewModel viewModel;
 
-    final Slider.OnSliderTouchListener touchListener =
-            new Slider.OnSliderTouchListener() {
-                @Override
-                public void onStartTrackingTouch(Slider slider) {
-                }
-
-                @Override
-                public void onStopTrackingTouch(Slider slider) {
-                    radius = slider.getValue();
-                }
-            };
 
     public HomeFragment() {
         // Required empty public constructor
@@ -83,8 +79,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         slider = view.findViewById(R.id.continuousSlider);
         slider.addOnSliderTouchListener(touchListener);
+
 
 
         CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
@@ -188,6 +186,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
             Log.i("keywords", keyWord.toString());
         });
+        placesModel.setKeyWord(keyWord);
 
 
         // Initialize the AutocompleteSupportFragment.
@@ -201,7 +200,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                 autocompleteFragment.setText(place.getShortFormattedAddress());
-                address = place.getShortFormattedAddress();
+                latitude = place.getLocation().latitude;
+                longitude = place.getLocation().longitude;
+                Log.i("coord", String.valueOf(latitude));
+                Log.i("coord", String.valueOf(longitude));
+                placesModel.setLatitude(latitude);
+                placesModel.setLongitude(longitude);
             }
 
 
@@ -216,13 +220,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Button button = view.findViewById(R.id.submit_button);
         button.setOnClickListener(this);
 
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+
     }
 
 
     @Override
     public void onClick(View v) {
+        viewModel.getAllPlaces(placesModel);
         PlacesFragment placesFragment = new PlacesFragment();
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.main, placesFragment).addToBackStack(null).commit();
     }
+    final Slider.OnSliderTouchListener touchListener =
+            new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(Slider slider) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(Slider slider) {
+                    radius = slider.getValue();
+                    placesModel.setRadius(radius);
+                    Log.i("radius", String.valueOf(radius));
+                }
+            };
 }

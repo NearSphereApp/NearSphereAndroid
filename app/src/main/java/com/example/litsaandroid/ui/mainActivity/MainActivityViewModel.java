@@ -19,8 +19,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         this.placesRepository = new PlacesRepository(application);
     }
 
-    public LiveData<List<Places>> getAllPlaces(){
-        return placesRepository.getMutableLiveData();
-        //Note: to complete getMutableLiveData method in PlacesRepository when have Retrofit instance
+    public LiveData<List<Places>> getAllPlaces(Places places){
+        return placesRepository.getMutableLiveData(places);
     }
 }

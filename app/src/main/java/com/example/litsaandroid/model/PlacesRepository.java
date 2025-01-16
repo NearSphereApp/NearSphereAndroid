@@ -19,27 +19,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlacesRepository {
-    private ArrayList<Places> places = new ArrayList<>();
     private MutableLiveData<List<Places>> mutableLiveData = new MutableLiveData<>();
     private Application application;
-    HomeFragment home;
 
+    HomeFragment home;
     public PlacesRepository(Application application) {
         this.application = application;
     }
-    public MutableLiveData<List<Places>> getMutableLiveData(){
-        //TO-DO add Logic when have Retrofit instance
+    public MutableLiveData<List<Places>> getMutableLiveData(Places places){
         PlacesAPIService placesApiService = RetrofitInstance.getService();
-        Call<List<Places>> call = placesApiService.getAllPlaces(home.keyWord, home.address, home.radius);
+//       Call<List<Places>> call = placesApiService.getAllPlaces(placeModel.getLatitude(), placeModel.getLongitude(), placeModel.getRadius(), placeModel.getKeyWord());
+        Call<List<Places>> call = placesApiService.getAllPlaces(places.getLatitude(), places.getLongitude(), places.getRadius(), places.getKeyWord());
+
         call.enqueue(
-                new Callback<>() {
-                    public void onResponse(@NonNull Call<List<Places>> call, @NonNull Response<List<Places>> response) {
-                        List<Places> album = response.body();
-                        mutableLiveData.setValue(album);
+                new Callback<List<Places>>() {
+                    public void onResponse( Call<List<Places>> call, Response<List<Places>> response) {
+                        List<Places> responseBody = response.body();
+                        mutableLiveData.setValue(responseBody);
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<List<Places>> call, @NonNull Throwable t) {
+                    public void onFailure( Call<List<Places>> call, Throwable t) {
                         Log.i("GET request", Objects.requireNonNull(t.getMessage()));
                     }
                 }
