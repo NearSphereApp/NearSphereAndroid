@@ -3,14 +3,11 @@ package com.example.litsaandroid.model;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.litsaandroid.HomeFragment;
 import com.example.litsaandroid.service.PlacesAPIService;
 import com.example.litsaandroid.service.RetrofitInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,31 +16,32 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlacesRepository {
-    private MutableLiveData<List<Places>> mutableLiveData = new MutableLiveData<>();
-    private Application application;
+    private final MutableLiveData<List<Places>> mutableLiveData = new MutableLiveData<>();
+    private PlacesAPIService placesApiService;
 
-    HomeFragment home;
     public PlacesRepository(Application application) {
-        this.application = application;
+        placesApiService = RetrofitInstance.getService();
     }
-    public MutableLiveData<List<Places>> getMutableLiveData(Places places){
-        PlacesAPIService placesApiService = RetrofitInstance.getService();
-//       Call<List<Places>> call = placesApiService.getAllPlaces(placeModel.getLatitude(), placeModel.getLongitude(), placeModel.getRadius(), placeModel.getKeyWord());
-        Call<List<Places>> call = placesApiService.getAllPlaces(places.getLatitude(), places.getLongitude(), places.getRadius(), places.getKeyWord());
 
-        call.enqueue(
-                new Callback<List<Places>>() {
-                    public void onResponse( Call<List<Places>> call, Response<List<Places>> response) {
-                        List<Places> responseBody = response.body();
-                        mutableLiveData.setValue(responseBody);
-                    }
+    public MutableLiveData<List<Places>> getPlaces(double latitude, double longitude, double radius, List<String> keywords){
+        Call<List<Places>> call = placesApiService.getAllPlaces(latitude, longitude, radius, keywords);
 
-                    @Override
-                    public void onFailure( Call<List<Places>> call, Throwable t) {
-                        Log.i("GET request", Objects.requireNonNull(t.getMessage()));
-                    }
+        call.enqueue(new Callback<List<Places>>() {
+            @Override
+            public void onResponse(Call<List<Places>> call, Response<List<Places>> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    Log.i("API Response", response.body().toString());
+                    mutableLiveData.setValue(response.body());
+                } else {
+                    Log.e("API Response", "Response unsuccessful or empty");
                 }
-        );
+            }
+
+            @Override
+            public void onFailure(Call<List<Places>> call, Throwable t) {
+                Log.e("API Error", Objects.requireNonNull(t.getMessage()));
+            }
+        });
         return mutableLiveData;
     }
 }

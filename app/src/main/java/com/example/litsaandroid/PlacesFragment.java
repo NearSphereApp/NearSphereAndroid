@@ -1,92 +1,97 @@
 package com.example.litsaandroid;
 
-import android.app.Application;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.litsaandroid.databinding.FragmentPlacesBinding;
 import com.example.litsaandroid.model.Places;
-import com.example.litsaandroid.model.PlacesRepository;
+import com.example.litsaandroid.model.SearchParameters;
 import com.example.litsaandroid.ui.mainActivity.Adapter;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.example.litsaandroid.ui.mainActivity.RecyclerViewInterface;
 import com.example.litsaandroid.ui.placeclick.PlaceClickActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacesFragment extends HomeFragment implements RecyclerViewInterface {
+public class PlacesFragment extends Fragment implements RecyclerViewInterface {
 
-    private RecyclerView recyclerView;
     private ArrayList<Places> placesList;
     private Adapter adapter;
     private FragmentPlacesBinding binding;
     private MainActivityViewModel mainActivityViewModel;
-    HomeFragment home;
-
+    private double homeLatitude;
+    private double homeLongitude;
+    private double homeRadius;
+    private List<String> homeKeywords;
 
     private static final String PLACES_KEY = "places";
 
-
-
     public PlacesFragment() {
-        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            SearchParameters params = getArguments().getParcelable("search_parameters");
+            if (params != null) {
+                homeLatitude = params.getLatitude();
+                homeLongitude = params.getLongitude();
+                homeRadius = params.getRadius();
+                homeKeywords = params.getKeywords();
+            }
+        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//    Application application = new Application();
-//    PlacesRepository placesRepository = new PlacesRepository(application);
-//    placesRepository.getMutableLiveData();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_places, container, false);
-
-    return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mainActivityViewModel = new ViewModelProvider(requireParentFragment()).get(MainActivityViewModel.class);
-        displayInRecyclerView();
-        getAllPlaces(home.placesModel);
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        setupRecyclerView();
+        getAllPlaces();
     }
 
-    private void getAllPlaces(Places places) {
-        mainActivityViewModel.getAllPlaces(places).observe(getViewLifecycleOwner(), new Observer<List<Places>>() {
-            @Override
-            public void onChanged(List<Places> places) {
-                placesList = (ArrayList<Places>) places;
-                displayInRecyclerView();
-            }
-        });
+    private void setupRecyclerView() {
+        adapter = new Adapter(new ArrayList<>(), this);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerview.setAdapter(adapter);
     }
-    private void displayInRecyclerView(){
-       recyclerView = binding.recyclerview;
-       adapter = new Adapter(placesList, this.getContext(), this);
-       LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-       recyclerView.setAdapter(adapter);
-       recyclerView.setLayoutManager(layoutManager);
-       recyclerView.setHasFixedSize(true);
-       adapter.notifyDataSetChanged();
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void getAllPlaces() {
+        mainActivityViewModel.getPlaces(homeLatitude, homeLongitude, homeRadius, homeKeywords)
+                .observe(getViewLifecycleOwner(), places -> {
+                    if (places != null) {
+                        placesList = new ArrayList<>(places);
+                        adapter.setPlacesList(placesList);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("PlacesFragment", "No places were returned.");
+                    }
+                });
     }
 
     @Override
     public void onItemClick(int position) {
-    Intent intent = new Intent(this.getContext(), PlaceClickActivity.class);
-    intent.putExtra(PLACES_KEY, placesList.get(position));
-    startActivity(intent);
+        Intent intent = new Intent(getContext(), PlaceClickActivity.class);
+        intent.putExtra(PLACES_KEY, placesList.get(position));
+        startActivity(intent);
     }
 }

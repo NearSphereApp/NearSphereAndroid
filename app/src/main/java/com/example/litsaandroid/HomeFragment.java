@@ -1,11 +1,5 @@
 package com.example.litsaandroid;
 
-import static com.example.litsaandroid.R.id.CheckBoxArt;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,18 +18,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.litsaandroid.model.Places;
+import com.example.litsaandroid.model.SearchParameters;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.dynamic.SupportFragmentWrapper;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -58,7 +50,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -71,7 +62,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
@@ -152,11 +142,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
         spaCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                keyWord.add("health");
-                keyWord.add("wellness");
+                keyWord.add("health and wellness");
             } else {
-                keyWord.remove("health");
-                keyWord.remove("wellness");
+                keyWord.remove("health and wellness");
             }
             Log.i("keywords", keyWord.toString());
         });
@@ -189,12 +177,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         placesModel.setKeyWord(keyWord);
 
 
-        // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
-        // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(List.of(Place.Field.SHORT_FORMATTED_ADDRESS));
 
-        // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
@@ -228,8 +213,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        viewModel.getAllPlaces(placesModel);
+        SearchParameters params = new SearchParameters(
+                placesModel.getLatitude(),
+                placesModel.getLongitude(),
+                placesModel.getRadius(),
+                placesModel.getKeyWord()
+        );
         PlacesFragment placesFragment = new PlacesFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("search_parameters", params);
+        placesFragment.setArguments(args);
+
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.main, placesFragment).addToBackStack(null).commit();
     }
