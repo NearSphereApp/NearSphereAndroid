@@ -15,7 +15,6 @@ public class Places extends BaseObservable implements Parcelable {
     private String id;
     private String title;
     private String description;
-    //    private String address;
     private String price;
     private Double latitude;
     private Double longitude;
@@ -69,15 +68,7 @@ public class Places extends BaseObservable implements Parcelable {
         }
     };
 
-//    @Bindable
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String address) {
-//        this.address = address;
-//        notifyPropertyChanged(BR.address);
-//    }
+
 
     public Double getRadius() {
         return radius;
@@ -171,7 +162,6 @@ public class Places extends BaseObservable implements Parcelable {
         dest.writeString(id);
         dest.writeString(title);
         dest.writeString(description);
-//        dest.writeString(address);
         dest.writeString(price);
         dest.writeStringList(keyWord);
         dest.writeString(img);

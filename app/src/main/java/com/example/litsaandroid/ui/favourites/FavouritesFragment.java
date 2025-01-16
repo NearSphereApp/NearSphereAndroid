@@ -44,33 +44,25 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        displayInRecyclerView();
-        getFavouritePlaces();
-    }
+//    @Override
+//    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+//        super.onViewCreated(view, savedInstanceState);
+//        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+//
+//        getFavouritePlaces();
+//    }
 
-    private void getFavouritePlaces(){
-        mainActivityViewModel.getAllPlaces().observe(getViewLifecycleOwner(), new Observer<List<Places>>() {
-            @Override
-            public void onChanged(List<Places> places) {
-                placesList = (ArrayList<Places>) places;
-                displayInRecyclerView();
-            }
-            //Need some logic to check if added to favourites here
-        });
-    }
-    private void displayInRecyclerView(){
-        recyclerView = binding.recyclerview;
-        adapter = new Adapter(placesList, this.getContext(), this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        adapter.notifyDataSetChanged();
-    }
+//    private void getFavouritePlaces(){
+//        mainActivityViewModel.getAllPlaces().observe(getViewLifecycleOwner(), new Observer<List<Places>>() {
+//            @Override
+//            public void onChanged(List<Places> places) {
+//                placesList = (ArrayList<Places>) places;
+//
+//            }
+//            //Need some logic to check if added to favourites here
+//        });
+//    }
+
 
     @Override
     public void onItemClick(int position) {

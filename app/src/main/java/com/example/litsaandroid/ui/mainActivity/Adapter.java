@@ -1,5 +1,6 @@
 package com.example.litsaandroid.ui.mainActivity;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +22,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
 
     private final RecyclerViewInterface recyclerViewInterface;
 
-    public Adapter(List<Places> placesList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter(List<Places> placesList, RecyclerViewInterface recyclerViewInterface) {
         this.placesList = placesList;
-        this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
+    public static class PlacesItemViewHolder extends RecyclerView.ViewHolder{
+        private PlacesItemBinding binding;
+        public PlacesItemViewHolder(PlacesItemBinding placesItemBinding,
+                                RecyclerViewInterface recyclerViewInterface){
+            super(placesItemBinding.getRoot());
+            this.binding = placesItemBinding;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface!= null){
+                        int position = getAdapterPosition();
+                        if (position!= RecyclerView.NO_POSITION)
+                            recyclerViewInterface.onItemClick(position);
+                    }
+                }
+            });
+        }
+    }
 
     @NonNull
     @Override
@@ -36,13 +55,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
                 R.layout.places_item,
                 parent,
                 false);
-        return new PlacesItemViewHolder(binding, recyclerViewInterface);
-    }
-
+        return new PlacesItemViewHolder(binding, recyclerViewInterface);}
     @Override
     public void onBindViewHolder(@NonNull PlacesItemViewHolder holder, int position) {
     Places place = placesList.get(position);
-    holder.placesItemBinding.setPlaces(place);
+    holder.binding.setPlaces(place);
     }
 
     @Override
@@ -50,25 +67,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
         return placesList.size();
     }
 
-    public static class PlacesItemViewHolder extends RecyclerView.ViewHolder {
 
-        private PlacesItemBinding placesItemBinding;
 
-        public PlacesItemViewHolder(PlacesItemBinding placesItemBinding, RecyclerViewInterface recyclerViewInterface) {
-            super(placesItemBinding.getRoot());
-            this.placesItemBinding = placesItemBinding;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                if(recyclerViewInterface != null){
-                    int position = getBindingAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClick(position);
-                    }
-                }
-                }
-            });
-        }
+    public void setPlacesList(List<Places> placesList) {
+        this.placesList = placesList;
     }
 }

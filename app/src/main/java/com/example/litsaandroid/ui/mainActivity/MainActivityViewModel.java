@@ -12,14 +12,14 @@ import com.example.litsaandroid.model.PlacesRepository;
 import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
-
     private PlacesRepository placesRepository;
+
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
         this.placesRepository = new PlacesRepository(application);
     }
 
-    public LiveData<List<Places>> getAllPlaces(Places places){
-        return placesRepository.getMutableLiveData(places);
+    public LiveData<List<Places>> getPlaces(double latitude, double longitude, double radius, List<String> keywords){
+        return placesRepository.getPlaces(latitude, longitude, radius, keywords);
     }
 }
