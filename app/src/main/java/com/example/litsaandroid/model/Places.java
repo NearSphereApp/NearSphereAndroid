@@ -12,32 +12,47 @@ import com.example.litsaandroid.BR;
 import java.util.List;
 
 public class Places extends BaseObservable implements Parcelable {
-    private int id;
+    private String id;
     private String title;
     private String description;
-    private String address;
-    private int price;
+    //    private String address;
+    private String price;
+    private Double latitude;
+    private Double longitude;
+    private Double radius;
     private List<String> keyWord;
     private String img;
 
     public Places() {
     }
 
-    public Places(int id, String title, int price, List<String> keyWord, String address) {
+    public Places(Double latitude, Double longitude, Double radius, List<String> keyWord) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
+        this.keyWord = keyWord;
+    }
+
+    public Places(String id, Double radius, String title, String price, Double latitude, Double longitude, List<String> keyWord) {
         this.id = id;
+        this.radius = radius;
         this.title = title;
         this.price = price;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.keyWord = keyWord;
-        this.address = address;
     }
 
 
     protected Places(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         title = in.readString();
         description = in.readString();
-        address = in.readString();
-        price = in.readInt();
+//        address = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        radius = in.readDouble();
+        price = in.readString();
         keyWord = in.createStringArrayList();
         img = in.readString();
     }
@@ -54,14 +69,46 @@ public class Places extends BaseObservable implements Parcelable {
         }
     };
 
-    @Bindable
-    public String getAddress() {
-        return address;
+//    @Bindable
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address) {
+//        this.address = address;
+//        notifyPropertyChanged(BR.address);
+//    }
+
+    public Double getRadius() {
+        return radius;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-        notifyPropertyChanged(BR.address);
+    public void setRadius(Double radius) {
+        this.radius = radius;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     @Bindable
@@ -81,7 +128,7 @@ public class Places extends BaseObservable implements Parcelable {
     public void setTitle(String title) {
         this.title = title;
 
-    notifyPropertyChanged(BR.title);}
+        notifyPropertyChanged(BR.title);}
 
     @Bindable
     public String getDescription() {
@@ -94,11 +141,11 @@ public class Places extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
         notifyPropertyChanged(BR.price);
 
@@ -121,12 +168,14 @@ public class Places extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeString(id);
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeString(address);
-        dest.writeInt(price);
+//        dest.writeString(address);
+        dest.writeString(price);
         dest.writeStringList(keyWord);
         dest.writeString(img);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 }
