@@ -13,77 +13,30 @@ import java.util.List;
 
 public class Places extends BaseObservable implements Parcelable {
     private String id;
-    private String title;
-    private String description;
-    private String price;
-    private Double latitude;
-    private Double longitude;
-    private Double radius;
-    private List<String> keyWord;
+
+    private String displayName;
+
     private String img;
+
+    private String formattedAddress;
+
+    private String websiteUri;
+
+    private String priceLevel;
+
+    private List<String> types;
 
     public Places() {
     }
 
-    public Places(Double latitude, Double longitude, Double radius, List<String> keyWord) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
-        this.keyWord = keyWord;
-    }
-
-    public Places(String id, Double radius, String title, String price, Double latitude, Double longitude, List<String> keyWord) {
+    public Places(String id, String displayName, String img, String formattedAddress, String websiteUri, String priceLevel, List<String> types) {
         this.id = id;
-        this.radius = radius;
-        this.title = title;
-        this.price = price;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.keyWord = keyWord;
-    }
-
-
-    protected Places(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        description = in.readString();
-//        address = in.readString();
-        latitude = in.readDouble();
-        longitude = in.readDouble();
-        radius = in.readDouble();
-        price = in.readString();
-        keyWord = in.createStringArrayList();
-        img = in.readString();
-    }
-
-    public static final Creator<Places> CREATOR = new Creator<Places>() {
-        @Override
-        public Places createFromParcel(Parcel in) {
-            return new Places(in);
-        }
-
-        @Override
-        public Places[] newArray(int size) {
-            return new Places[size];
-        }
-    };
-
-
-
-    public Double getRadius() {
-        return radius;
-    }
-
-    public void setRadius(Double radius) {
-        this.radius = radius;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+        this.displayName = displayName;
+        this.img = img;
+        this.formattedAddress = formattedAddress;
+        this.websiteUri = websiteUri;
+        this.priceLevel = priceLevel;
+        this.types = types;
     }
 
     public String getId() {
@@ -94,12 +47,13 @@ public class Places extends BaseObservable implements Parcelable {
         this.id = id;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    @Bindable
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Bindable
@@ -112,44 +66,39 @@ public class Places extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public String getTitle() {
-        return title;
+    public String getFormattedAddress() {
+        return formattedAddress;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-
-        notifyPropertyChanged(BR.title);}
-
-    @Bindable
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        notifyPropertyChanged(BR.description);
+    public void setFormattedAddress(String formattedAddress) {
+        this.formattedAddress = formattedAddress;
     }
 
     @Bindable
-    public String getPrice() {
-        return price;
+    public String getWebsiteUri() {
+        return websiteUri;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-        notifyPropertyChanged(BR.price);
-
+    public void setWebsiteUri(String websiteUri) {
+        this.websiteUri = websiteUri;
     }
 
     @Bindable
-    public List<String> getKeyWord() {
-        return keyWord;
+    public String getPriceLevel() {
+        return priceLevel;
     }
 
-    public void setKeyWord(List<String> keyWord) {
-        this.keyWord = keyWord;
-        notifyPropertyChanged(BR.keyWord);
+    public void setPriceLevel(String priceLevel) {
+        this.priceLevel = priceLevel;
+    }
+
+    @Bindable
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 
     @Override
@@ -159,13 +108,32 @@ public class Places extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeString(price);
-        dest.writeStringList(keyWord);
-        dest.writeString(img);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
+    dest.writeString(id);
+    dest.writeString(displayName);
+    dest.writeString(img);
+    dest.writeString(formattedAddress);
+    dest.writeString(websiteUri);
+    dest.writeString(priceLevel);
+    dest.writeList(types);
     }
+    protected Places (Parcel in){
+    id = in.readString();
+    displayName = in.readString();
+    img = in.readString();
+    formattedAddress = in.readString();
+    websiteUri = in.readString();
+    priceLevel = in.readString();
+    types = in.createStringArrayList();
+    }
+    private static final Creator<Places> CREATOR = new Creator<Places>() {
+        @Override
+        public Places createFromParcel(Parcel in) {
+            return new Places(in);
+        }
+
+        @Override
+        public Places[] newArray(int size) {
+            return new Places[size];
+        }
+    };
 }
