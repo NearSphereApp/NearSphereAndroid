@@ -8,6 +8,9 @@
         <variable
             name="Places"
             type="com.example.litsaandroid.model.Places" />
+        <variable
+            name="clickhandlers"
+            type="com.example.litsaandroid.ui.favourites.FavouritesClickHandler"/>
     </data>
 
 
