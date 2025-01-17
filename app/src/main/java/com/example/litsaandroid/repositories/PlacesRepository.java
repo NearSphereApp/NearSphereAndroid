@@ -1,10 +1,11 @@
-package com.example.litsaandroid.model;
+package com.example.litsaandroid.repositories;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.service.PlacesAPIService;
 import com.example.litsaandroid.service.RetrofitInstance;
 
@@ -26,6 +27,7 @@ public class PlacesRepository {
     }
 
     public MutableLiveData<List<Places>> getPlaces(double latitude, double longitude, double radius, List<String> keywords){
+
         Call<List<Places>> call = placesApiService.getAllPlaces(latitude, longitude, radius, keywords);
 
         call.enqueue(new Callback<List<Places>>() {

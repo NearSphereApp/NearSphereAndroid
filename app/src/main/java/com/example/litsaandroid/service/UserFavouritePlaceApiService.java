@@ -1,6 +1,6 @@
 package com.example.litsaandroid.service;
 
-import com.example.litsaandroid.model.UserFavouritePlace;
+import com.example.litsaandroid.model.Favourites;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import retrofit2.http.Path;
 public interface UserFavouritePlaceApiService {
 
     @GET("favourites")
-    Call<List<UserFavouritePlace>> getAllFavourites();
+    Call<List<Favourites>> getAllFavourites();
 
     @POST("favourites")
-    Call<UserFavouritePlace> addUserFavouritePlace(@Body UserFavouritePlace userFavouritePlace);
+    Call<Favourites> addFavourite(@Body Favourites favourites);
 
     @DELETE("favourites/{id}")
-    Call<String> deleteUserFavouritePlace(@Path("id") long id);
+    Call<String> deleteFavourite(@Path("id") String id);
 }

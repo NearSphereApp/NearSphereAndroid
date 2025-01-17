@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.litsaandroid.model.Places;
-import com.example.litsaandroid.model.PlacesRepository;
+import com.example.litsaandroid.repositories.PlacesRepository;
 
 import java.util.List;
 

@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.litsaandroid.model.UserFavouritePlace;
-import com.example.litsaandroid.model.UserFavouriteRepository;
+import com.example.litsaandroid.model.Favourites;
+import com.example.litsaandroid.repositories.UserFavouriteRepository;
 
 import java.util.List;
 
@@ -21,18 +21,15 @@ public class FavouritesViewModel extends AndroidViewModel {
         this.userFavouriteRepository = new UserFavouriteRepository(application);
     }
 
-    public MutableLiveData<List<UserFavouritePlace>> getAllFavourites(){
-        //TO-DO - add logic
-        return new MutableLiveData<>();
+    public MutableLiveData<List<Favourites>> getAllFavourites(){
+        return userFavouriteRepository.getFavourites();
     }
 
-    public void addFavourites(UserFavouritePlace userFavouritePlace){
-        userFavouriteRepository.addFavourite();
-        //TO-DO - add logic in addfavourite method
+    public void addFavourites(Favourites favourites){
+        userFavouriteRepository.addFavourite(favourites);
     }
 
-    public void deleteFavourites(){
-        userFavouriteRepository.deleteFavourite();
-        //TO-DO - add logic in deletefavourite method
+    public void deleteFavourites(String id){
+        userFavouriteRepository.deleteFavourite(id);
     }
 }
