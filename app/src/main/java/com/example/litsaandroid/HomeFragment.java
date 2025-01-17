@@ -28,6 +28,7 @@ import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
@@ -40,15 +41,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private CheckBox footballCheck;
     private CheckBox allCheck;
     public List<String> keyWord;
-    public String address;
     public double radius;
     public Slider slider;
     public double latitude;
     public double longitude;
-    Places placesModel = new Places();
+    public SearchParameters searchParameters = new SearchParameters();
     MainActivityViewModel viewModel;
 
+    final Slider.OnSliderTouchListener touchListener =
+            new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
+                }
 
+                @Override
+                public void onStopTrackingTouch(Slider slider) {
+                    radius = slider.getValue();
+                    searchParameters.setRadius(radius);
+                    Log.i("radius", String.valueOf(radius));
+                }
+            };
     public HomeFragment() {
     }
 
@@ -174,7 +186,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
             Log.i("keywords", keyWord.toString());
         });
-        placesModel.setKeyWord(keyWord);
+        searchParameters.setKeywords(keyWord);
 
 
         AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
@@ -185,12 +197,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                 autocompleteFragment.setText(place.getShortFormattedAddress());
-                latitude = place.getLocation().latitude;
+                latitude = Objects.requireNonNull(place.getLocation()).latitude;
                 longitude = place.getLocation().longitude;
                 Log.i("coord", String.valueOf(latitude));
                 Log.i("coord", String.valueOf(longitude));
-                placesModel.setLatitude(latitude);
-                placesModel.setLongitude(longitude);
+                searchParameters.setLatitude(latitude);
+                searchParameters.setLongitude(longitude);
             }
 
 
@@ -213,31 +225,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        SearchParameters params = new SearchParameters(
-                placesModel.getLatitude(),
-                placesModel.getLongitude(),
-                placesModel.getRadius(),
-                placesModel.getKeyWord()
-        );
+
         PlacesFragment placesFragment = new PlacesFragment();
         Bundle args = new Bundle();
-        args.putParcelable("search_parameters", params);
+        args.putParcelable("search_parameters", searchParameters);
         placesFragment.setArguments(args);
 
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.main, placesFragment).addToBackStack(null).commit();
+        transaction.replace(R.id.flFragment, placesFragment).addToBackStack(null).commit();
     }
-    final Slider.OnSliderTouchListener touchListener =
-            new Slider.OnSliderTouchListener() {
-                @Override
-                public void onStartTrackingTouch(Slider slider) {
-                }
 
-                @Override
-                public void onStopTrackingTouch(Slider slider) {
-                    radius = slider.getValue();
-                    placesModel.setRadius(radius);
-                    Log.i("radius", String.valueOf(radius));
-                }
-            };
 }
