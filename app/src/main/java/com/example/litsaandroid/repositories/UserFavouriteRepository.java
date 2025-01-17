@@ -1,4 +1,4 @@
-package com.example.litsaandroid.model;
+package com.example.litsaandroid.repositories;
 
 import android.app.Application;
 import android.util.Log;
@@ -6,11 +6,11 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.litsaandroid.service.PlacesAPIService;
+import com.example.litsaandroid.model.Favourites;
+import com.example.litsaandroid.service.UserFavouritePlaceApiService;
 import com.example.litsaandroid.service.RetrofitInstance;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
