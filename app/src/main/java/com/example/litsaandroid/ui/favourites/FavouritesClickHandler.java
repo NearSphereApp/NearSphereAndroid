@@ -16,8 +16,7 @@ public class FavouritesClickHandler {
         this.userFavouritePlace = userFavouritePlace;
         this.favouritesViewModel = favouritesViewModel;
     }
-    public void onClickFavouritesButton(View view){
-        favouritesViewModel.addFavourites(userFavouritePlace);    }
-    //TO-DO - decide if want to switch screen when favourites button clicked
+
+    //NOTE: check if better for addfavourites button logic to be here or in mainactivityclickhandler
     }
 
