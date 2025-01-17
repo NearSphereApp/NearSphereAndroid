@@ -6,7 +6,9 @@ import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.litsaandroid.model.TokenStorage;
 import com.example.litsaandroid.model.User;
+import com.example.litsaandroid.model.UserResponse;
 import com.example.litsaandroid.service.RetrofitInstance;
 import com.example.litsaandroid.service.UserAPIService;
 
@@ -21,10 +23,12 @@ public class UserRepository {
     private final MutableLiveData<User> mutableLiveData = new MutableLiveData<>();
     private UserAPIService userAPIService;
 
+
     public UserRepository(Application application) {
         this.application = application;
         userAPIService = RetrofitInstance.getService().create(UserAPIService.class);
     }
+
 
     public MutableLiveData<User> getUser(String token) {
         Call<User> call = userAPIService.getUser(token);
@@ -47,10 +51,10 @@ public class UserRepository {
         });
         return mutableLiveData;
     }
-    public void addUser(String email, String password, String username) {
 
-        Call call = userAPIService.create(email,password,username);
-        call.enqueue(new Callback<String>() {
+    public void addUser(String email, String password, String username) {
+        Call call = userAPIService.create(email, password, username);
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call call, Response response) {
                 Toast.makeText(application.getApplicationContext(), "You're successfully registered", Toast.LENGTH_SHORT).show();
@@ -64,13 +68,19 @@ public class UserRepository {
             }
         });
     }
-    public String logUser(String email, String password) {
 
-        Call call = userAPIService.loginToken(email,password);
-        call.enqueue(new Callback<String>() {
+    public UserResponse logUser(String email, String password) throws Exception {
+        TokenStorage tokenStorage = new TokenStorage(application.getApplicationContext());
+        UserResponse userResponse= new UserResponse();
+        Call call = userAPIService.loginToken(email, password);
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call call, Response response) {
-                Log.i("Log in", response.toString());
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String token = response.body().getToken(); // Extract token
+                    tokenStorage.saveToken(token);// Save token securely
+                    userResponse.setToken(token);
+                }
             }
 
             @Override
@@ -79,5 +89,7 @@ public class UserRepository {
                 Log.e("POST onFailure", t.getMessage());
             }
         });
+
+        return userResponse;
     }
 }
