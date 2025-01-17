@@ -1,4 +1,4 @@
-package com.example.litsaandroid;
+package com.example.litsaandroid.ui.mainActivity;
 
 import android.os.Bundle;
 
@@ -17,11 +17,13 @@ import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.model.SearchParameters;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
+import com.example.litsaandroid.ui.mainActivity.PlacesFragment;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.slider.Slider;
