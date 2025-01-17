@@ -1,4 +1,6 @@
-package com.example.litsaandroid.model;
+package com.example.litsaandroid.service;
+
+import com.example.litsaandroid.model.Favourites;
 
 import java.util.List;
 
