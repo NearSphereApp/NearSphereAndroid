@@ -10,10 +10,13 @@ public class SearchParameters implements Parcelable {
     private double radius;
     private List<String> keywords;
 
+    public SearchParameters() {
+    }
+
     public SearchParameters(double latitude, double longitude, double radius, List<String> keywords) {
-        this.latitude = 53.483959;
-        this.longitude = -2.244644;
-        this.radius = 500;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
         this.keywords = keywords;
     }
 
@@ -50,6 +53,22 @@ public class SearchParameters implements Parcelable {
 
     public List<String> getKeywords() {
         return keywords;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 
     @Override
