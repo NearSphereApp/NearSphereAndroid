@@ -50,7 +50,7 @@ public class LogActivity extends AppCompatActivity {
                     //if login is successful we move to the HomeFragment
                       getSupportFragmentManager()
                               .beginTransaction()
-                              .replace(R.id.flFragment, home)
+                              .replace(R.id.fllogin, home)
                               .commit();
                   } else {
                       Toast.makeText(getApplicationContext(),"Log in not successful, try again",Toast.LENGTH_SHORT).show();
@@ -62,6 +62,7 @@ public class LogActivity extends AppCompatActivity {
         });
 
         //logic for create button
+
         Button createButton = findViewById(R.id.createAccount);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +70,7 @@ public class LogActivity extends AppCompatActivity {
                 CreateLogFragment create = new CreateLogFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, create)
+                        .replace(R.id.fllogin, create)
                         .commit();
             }
         });
@@ -82,7 +83,7 @@ public class LogActivity extends AppCompatActivity {
                 ResetPasswordFragment reset = new ResetPasswordFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragment, reset)
+                        .replace(R.id.fllogin, reset)
                         .commit();
             }
         });
