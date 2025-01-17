@@ -1,4 +1,4 @@
-package com.example.litsaandroid.User;
+package com.example.litsaandroid.user;
 
 import android.app.Application;
 
@@ -6,11 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.litsaandroid.model.Places;
-import com.example.litsaandroid.model.PlacesRepository;
 import com.example.litsaandroid.model.User;
-
-import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
     private UserRepository userRepository;

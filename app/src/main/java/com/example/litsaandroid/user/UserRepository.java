@@ -1,4 +1,4 @@
-package com.example.litsaandroid.User;
+package com.example.litsaandroid.user;
 
 import android.app.Application;
 import android.util.Log;
