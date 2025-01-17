@@ -8,15 +8,18 @@ import java.time.LocalDateTime;
 public class Favourites extends BaseObservable {
 
     private Long id;
-    private User user;
-    private String googlePlaceId;
-    private LocalDateTime addedAt;
+
+    private String displayName;
+
+    private String img;
+
+    private String formattedAddress;
+
+    private String websiteUri;
+
+    private String priceLevel;
 
     public Favourites() {
-    }
-    public Favourites(User user, String googlePlaceId) {
-        this.user = user;
-        this.googlePlaceId = googlePlaceId;
     }
 
     @Bindable
@@ -27,30 +30,52 @@ public class Favourites extends BaseObservable {
     public void setId(Long id) {
         this.id = id;
     }
-    @Bindable
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Bindable
-    public String getGooglePlaceId() {
-        return googlePlaceId;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setGooglePlaceId(String googlePlaceId) {
-        this.googlePlaceId = googlePlaceId;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Bindable
-    public LocalDateTime getAddedAt() {
-        return addedAt;
+    public String getImg() {
+        return img;
     }
 
-    public void setAddedAt(LocalDateTime addedAt) {
-        this.addedAt = addedAt;
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    @Bindable
+    public String getFormattedAddress() {
+        return formattedAddress;
+    }
+
+    public void setFormattedAddress(String formattedAddress) {
+        this.formattedAddress = formattedAddress;
+    }
+
+    @Bindable
+    public String getWebsiteUri() {
+        return websiteUri;
+    }
+
+    public void setWebsiteUri(String websiteUri) {
+        this.websiteUri = websiteUri;
+    }
+
+    @Bindable
+    public String getPriceLevel() {
+        return priceLevel;
+    }
+
+    public void setPriceLevel(String priceLevel) {
+        this.priceLevel = priceLevel;
     }
 }
+
+
+
