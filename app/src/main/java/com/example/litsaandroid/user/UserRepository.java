@@ -64,7 +64,7 @@ public class UserRepository {
             }
         });
     }
-    public void logUser(String email, String password) {
+    public String logUser(String email, String password) {
 
         Call call = userAPIService.loginToken(email,password);
         call.enqueue(new Callback<String>() {
