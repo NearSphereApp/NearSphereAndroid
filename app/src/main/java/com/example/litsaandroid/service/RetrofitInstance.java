@@ -9,7 +9,7 @@ public class RetrofitInstance {
     private static Retrofit retrofit= null;
     private static final String baseURL = "http://10.0.2.2:8080/api/v1/";
 
-    public static PlacesAPIService getService(){
+    public static Retrofit getService(){
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -21,6 +21,7 @@ public class RetrofitInstance {
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();}
-        return retrofit.create(PlacesAPIService.class);
+        return retrofit;
     }
+
 }

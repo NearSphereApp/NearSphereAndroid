@@ -18,9 +18,11 @@ import retrofit2.Response;
 public class PlacesRepository {
     private final MutableLiveData<List<Places>> mutableLiveData = new MutableLiveData<>();
     private PlacesAPIService placesApiService;
+    private Application application;
 
     public PlacesRepository(Application application) {
-        placesApiService = RetrofitInstance.getService();
+        this.application = application;
+        placesApiService = RetrofitInstance.getService().create(PlacesAPIService.class);
     }
 
     public MutableLiveData<List<Places>> getPlaces(double latitude, double longitude, double radius, List<String> keywords){
