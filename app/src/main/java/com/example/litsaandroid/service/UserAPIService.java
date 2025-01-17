@@ -1,6 +1,8 @@
 package com.example.litsaandroid.service;
 
+import com.example.litsaandroid.model.TokenStorage;
 import com.example.litsaandroid.model.User;
+import com.example.litsaandroid.model.UserResponse;
 
 import okhttp3.internal.http.StatusLine;
 import retrofit2.Call;
@@ -15,7 +17,7 @@ public interface UserAPIService {
     Call<User> getUser(@Header("token") String token);
 
     @POST("auth/login")
-    Call<String> loginToken (@Body String email, @Body String password);
+    Call<UserResponse> loginToken (@Body String email, @Body String password);
 
     @POST("auth/signup")
     Call<StatusLine> create (@Body String email, @Body String password, @Body String displayName);
