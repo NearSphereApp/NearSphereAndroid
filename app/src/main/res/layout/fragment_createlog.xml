@@ -12,10 +12,12 @@
         android:layout_height="match_parent"
         android:background="@color/blueSky">
 
-        <TextView
+        <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/createAccount"
@@ -27,10 +29,12 @@
             android:layout_marginStart="30sp"
             android:layout_marginEnd="30sp"
             />
-        <TextView
+        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:inputType="textPassword"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/email"
             android:layout_marginTop="30sp"
@@ -42,10 +46,12 @@
             android:layout_marginStart="30sp"
             android:layout_marginEnd="30sp"
             />
-        <TextView
+        <EditText
             android:id="@+id/passwordrepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:inputType="textPassword"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/password"
             android:layout_marginTop="30sp"
