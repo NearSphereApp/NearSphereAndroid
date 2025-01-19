@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.litsaandroid.ui.favourites.FavouritesFragment;
-import com.example.litsaandroid.HomeFragment;
+import com.example.litsaandroid.ui.mainActivity.HomeFragment;
 import com.example.litsaandroid.R;
-import com.example.litsaandroid.UserInfoFragment;
+import com.example.litsaandroid.user.UserInfoFragment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.navigation.NavigationBarView;
