@@ -23,5 +23,5 @@ public interface UserAPIService {
     Call<StatusLine> create (@Body User user);
 
     @PATCH("user")
-    Call<User> editUser ();
+    Call<User> editUser (@Header("token") String name);
 }
