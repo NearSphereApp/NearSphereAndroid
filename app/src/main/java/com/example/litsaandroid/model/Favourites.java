@@ -4,10 +4,11 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Favourites extends BaseObservable {
 
-    private Long id;
+    private String id;
 
     private String displayName;
 
@@ -19,15 +20,17 @@ public class Favourites extends BaseObservable {
 
     private String priceLevel;
 
+    private List<String> types;
+
     public Favourites() {
     }
 
     @Bindable
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -74,6 +77,15 @@ public class Favourites extends BaseObservable {
 
     public void setPriceLevel(String priceLevel) {
         this.priceLevel = priceLevel;
+    }
+
+    @Bindable
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 }
 
