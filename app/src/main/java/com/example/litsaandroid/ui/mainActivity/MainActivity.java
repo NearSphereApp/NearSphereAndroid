@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.litsaandroid.ui.favourites.FavouritesFragment;
-import com.example.litsaandroid.ui.mainActivity.HomeActivity;
+import com.example.litsaandroid.ui.mainActivity.HomeFragment;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.user.UserInfoFragment;
 import com.google.android.libraries.places.api.Places;
@@ -25,7 +25,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     private NavigationBarView bottomNavigationView;
-    private HomeActivity homeFragment = new HomeActivity();
+    private HomeFragment homeFragment = new HomeFragment();
     private FavouritesFragment favouritesFragment = new FavouritesFragment();
     private UserInfoFragment userInfoFragment = new UserInfoFragment();
 
@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
-        //extracting Secret from metadata
+//extracting Secret from metadata
         ApplicationInfo ai = null;
         try {
             ai = getApplicationContext().getPackageManager()
@@ -48,10 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         assert key != null;
         Log.i("TAG", key);
         //initialise Places
-        Places.initializeWithNewPlacesApiEnabled(getApplicationContext(),key);
+        com.google.android.libraries.places.api.Places.initializeWithNewPlacesApiEnabled(getApplicationContext(),key);
         PlacesClient placesClient = Places.createClient(this);
-
-
 
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -62,8 +59,10 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragment, homeFragment)
+                    .commit();
             return true;
         }
         if (item.getItemId() == R.id.favourites) {

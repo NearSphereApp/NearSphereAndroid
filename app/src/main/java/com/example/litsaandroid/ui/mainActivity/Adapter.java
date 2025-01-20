@@ -106,11 +106,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
             Favourites newFavourite = new Favourites();
 
             newFavourite.setDisplayName(place.getDisplayName());
-            newFavourite.setPhotoLink(place.getImg());
-            newFavourite.setFormattedAddress(place.getFormattedAddress());
-            newFavourite.setWebsite(place.getWebsiteUri());
-            newFavourite.setPriceLevel(place.getPriceLevel());
-            newFavourite.setTypes(place.getTypes().toString());
+//            newFavourite.setPhotoLink(place.getImg());
+//            newFavourite.setFormattedAddress(place.getFormattedAddress());
+//            newFavourite.setWebsite(place.getWebsiteUri());
+//            newFavourite.setPriceLevel(place.getPriceLevel());
+//            newFavourite.setTypes(place.getTypes().toString());
 
 //            favouritesViewModel.addFavourites(GET USER ID, newFavourite);
 

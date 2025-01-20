@@ -22,10 +22,11 @@ import android.widget.Toast;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.User;
 import com.example.litsaandroid.model.UserResponse;
-import com.example.litsaandroid.ui.mainActivity.HomeActivity;
+import com.example.litsaandroid.ui.mainActivity.HomeFragment;
 import com.example.litsaandroid.ui.mainActivity.MainActivity;
 import com.example.litsaandroid.ui.mainActivity.Splash;
 
+import java.util.List;
 import java.util.Objects;
 
 public class LogActivity extends AppCompatActivity {
@@ -64,7 +65,7 @@ public class LogActivity extends AppCompatActivity {
                 //if login is successful we move to the HomeFragment
                 //TODO
 //                if (viewModel.isLoginValid(response)){
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent intent = new Intent(LogActivity.this, MainActivity.class);
                 startActivity(intent);
 //            } else {
 //                      Toast.makeText(getApplicationContext(),"Log in not successful, try again",Toast.LENGTH_SHORT).show();

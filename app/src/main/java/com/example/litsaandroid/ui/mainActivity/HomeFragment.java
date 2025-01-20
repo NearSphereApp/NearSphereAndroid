@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private CheckBox booksCheck;
     private CheckBox nightlifeCheck;
@@ -68,31 +69,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Log.i("radius", String.valueOf(radius));
                 }
             };
-
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.fragment_home);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        slider = findViewById(R.id.continuousSlider);
+        slider = view.findViewById(R.id.continuousSlider);
         slider.addOnSliderTouchListener(touchListener);
 
 
 
-        CheckBox artCheck = findViewById(R.id.CheckBoxArt);
-        booksCheck = findViewById(R.id.CheckBoxBooks);
-        nightlifeCheck = findViewById(R.id.CheckBoxNight);
-        natureCheck = findViewById(R.id.CheckBoxNature);
-        religionCheck =findViewById(R.id.CheckBoxReligion);
-        foodCheck = findViewById(R.id.CheckBoxFood);
-        spaCheck = findViewById(R.id.CheckBoxSpa);
-        footballCheck = findViewById(R.id.CheckBoxFootball);
-        allCheck = findViewById(R.id.CheckBoxALL);
+        CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
+        booksCheck = view.findViewById(R.id.CheckBoxBooks);
+        nightlifeCheck = view.findViewById(R.id.CheckBoxNight);
+        natureCheck = view.findViewById(R.id.CheckBoxNature);
+        religionCheck =view.findViewById(R.id.CheckBoxReligion);
+        foodCheck = view.findViewById(R.id.CheckBoxFood);
+        spaCheck = view.findViewById(R.id.CheckBoxSpa);
+        footballCheck = view.findViewById(R.id.CheckBoxFootball);
+        allCheck = view.findViewById(R.id.CheckBoxALL);
 
-        TableLayout checkTable = findViewById(R.id.check_table);
+        TableLayout checkTable = view.findViewById(R.id.check_table);
 
         keyWord = new ArrayList<>();
 
@@ -183,22 +186,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
         searchParameters.setKeywords(keyWord);
 
-        //extracting Secret from metadata
-        ApplicationInfo ai = null;
-        try {
-            ai = getApplicationContext().getPackageManager()
-                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String key = ai.metaData.getString("KEY");
-        assert key != null;
-        Log.i("TAG", key);
-        //initialise Places
-        com.google.android.libraries.places.api.Places.initializeWithNewPlacesApiEnabled(getApplicationContext(),key);
-        PlacesClient placesClient = Places.createClient(this);
 
-        AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(findViewById(R.id.autocomplete_fragment));
+
+        AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
         autocompleteFragment.setPlaceFields(List.of(Place.Field.SHORT_FORMATTED_ADDRESS));
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -223,7 +213,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        Button button = findViewById(R.id.submit_button);
+        Button button = view.findViewById(R.id.submit_button);
         button.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -240,10 +230,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         args.putParcelable("search_parameters", searchParameters);
         placesFragment.setArguments(args);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                 .replace(R.id.flHome, placesFragment)
-                .addToBackStack(null).commit();
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.flHome, placesFragment).addToBackStack(null).commit();
     }
 
 }

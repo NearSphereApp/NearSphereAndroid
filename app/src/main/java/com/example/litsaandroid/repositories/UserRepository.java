@@ -20,7 +20,6 @@ import retrofit2.Response;
 
 public class UserRepository {
     private Application application;
-    private final MutableLiveData<User> mutableLiveData = new MutableLiveData<>();
     private UserAPIService userAPIService;
 
 
@@ -128,5 +127,24 @@ public class UserRepository {
             }
         });
         return updatedUser;
+    }
+    public void resetPassword(String email) {
+        Call call = userAPIService.resetPassword(email);
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(application.getApplicationContext(), "You will receive an email shortly", Toast.LENGTH_SHORT).show();
+                } else{
+//                    Toast.makeText(application.getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.e("POST onFailure", t.getMessage());
+            }
+        });
     }
 }
