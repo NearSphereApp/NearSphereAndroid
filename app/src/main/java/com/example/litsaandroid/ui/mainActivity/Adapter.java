@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.databinding.PlacesItemBinding;
 import com.example.litsaandroid.model.Favourites;
@@ -69,6 +70,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     public void onBindViewHolder(@NonNull PlacesItemViewHolder holder, int position) {
     Places place = placesList.get(position);
     holder.binding.setPlaces(place);
+
+        Glide.with(holder.itemView.getContext())
+                .load(place.getImg())
+                .placeholder(R.drawable.place_image)
+                .fitCenter()
+                .into(holder.binding.placesImage);
+
+//        switch(place.getPriceLevel()) {
+//            case "1":
+//                holder.binding.price.setImageResource(R.drawable.one_pound);
+//                break;
+//            case "2":
+//                holder.binding.price.setImageResource(R.drawable.two_pound);
+//                break;
+//            case "3":
+//                holder.binding.price.setImageResource(R.drawable.three_pound);
+//                break;
+//            case "4":
+//                holder.binding.price.setImageResource(R.drawable.four_pound);
+//                break;
+//            default:
+//                holder.binding.price.setImageResource(R.drawable.ic_price_foreground);
+//        }
+
 
     FloatingActionButton favouritesButton = holder.binding.floatingActionButtonFavourites;
     favouritesButton.setSelected(true);
