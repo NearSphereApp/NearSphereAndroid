@@ -59,23 +59,32 @@ public class UserInfoFragment extends Fragment {
        String token = tokenStorage.getToken();
        name = view.findViewById(R.id.name);
        email = view.findViewById(R.id.email);
+
         User user = new User();
         try {
             user = viewModel.getUser();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
         assert user != null;
         name.setText(user.getName());
         email.setText(user.getEmail());
 
         //logic for update button
         updateButton = view.findViewById(R.id.update);
+
         User finalUser = user;
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.editUser(finalUser);
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.editUser(user);
+
                 Intent intent = new Intent(getContext(), Splash.class);
                 startActivity(intent);
             }

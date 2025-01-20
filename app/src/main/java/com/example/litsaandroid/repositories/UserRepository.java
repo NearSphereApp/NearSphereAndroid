@@ -30,9 +30,11 @@ public class UserRepository {
     }
 
 
+
     public User getUser() throws Exception {
         TokenStorage tokenStorage = new TokenStorage(application.getApplicationContext());
         String token = tokenStorage.getToken();
+
         User newUser = new User();
         Call<User> call = userAPIService.getUser(token);
         call.enqueue(new Callback<User>() {
