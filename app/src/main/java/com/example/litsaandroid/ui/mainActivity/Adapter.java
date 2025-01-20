@@ -12,10 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.databinding.PlacesItemBinding;
 import com.example.litsaandroid.model.Favourites;
 import com.example.litsaandroid.model.Places;
+
+
 import com.example.litsaandroid.ui.favourites.FavouritesFragment;
 import com.example.litsaandroid.ui.favourites.FavouritesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,9 +30,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     private Context context;
     private Favourites favourites;
     private FavouritesViewModel favouritesViewModel;
-
     private FavouritesFragment favouritesFragment;
-
     private final RecyclerViewInterface recyclerViewInterface;
 
     public Adapter(List<Places> placesList, RecyclerViewInterface recyclerViewInterface) {
@@ -73,12 +74,35 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     Places place = placesList.get(position);
     holder.binding.setPlaces(place);
 
+        Glide.with(holder.itemView.getContext())
+                .load(place.getImg())
+                .placeholder(R.drawable.place_image)
+                .fitCenter()
+                .into(holder.binding.placesImage);
+
+//        switch(place.getPriceLevel()) {
+//            case "1":
+//                holder.binding.price.setImageResource(R.drawable.one_pound);
+//                break;
+//            case "2":
+//                holder.binding.price.setImageResource(R.drawable.two_pound);
+//                break;
+//            case "3":
+//                holder.binding.price.setImageResource(R.drawable.three_pound);
+//                break;
+//            case "4":
+//                holder.binding.price.setImageResource(R.drawable.four_pound);
+//                break;
+//            default:
+//                holder.binding.price.setImageResource(R.drawable.ic_price_foreground);
+//        }
+
+
     FloatingActionButton favouritesButton = holder.binding.floatingActionButtonFavourites;
     favouritesButton.setSelected(true);
     favouritesButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             Favourites newFavourite = new Favourites();
 
             newFavourite.setDisplayName(place.getDisplayName());
@@ -93,6 +117,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
             Bundle args = new Bundle();
             args.putParcelable("favourites_body", newFavourite);
             favouritesFragment.setArguments(args);
+
 
             if(favouritesButton.isSelected()){
                 favouritesButton.setImageResource(R.drawable.favourites_clicked);

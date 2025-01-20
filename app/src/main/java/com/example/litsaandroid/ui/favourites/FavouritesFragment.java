@@ -62,8 +62,17 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         clickHandler = new FavouritesClickHandler(this.getContext(), favourites, favouritesViewModel);
         binding.setFavourites(favourites);
         binding.setClickhandlers(clickHandler);
-//        getFavouritePlaces();
+        getFavouritePlaces();
         setupRecyclerView();
+    }
+
+ 
+    private void setupRecyclerView() {
+        adapter = new Adapter(new ArrayList<>(), this);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerview.setAdapter(adapter);
+    }
+
     }
 
 //    private void getFavouritePlaces(){
@@ -74,11 +83,7 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
 //            }
 //        });
 //    }
-    private void setupRecyclerView() {
-        adapter = new Adapter(new ArrayList<>(), this);
-        binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerview.setAdapter(adapter);
-    }
+
     @Override
     public void onItemClick(int position) {
 

@@ -12,21 +12,20 @@ import java.util.List;
 
 public class Favourites extends BaseObservable implements Parcelable {
 
-    private Long id;
 
-    private Long userId;
+    private String id;
 
     private String displayName;
 
-    private String photoLink;
+    private String img;
 
     private String formattedAddress;
 
-    private String website;
+    private String websiteUri;
 
     private String priceLevel;
 
-    private String types;
+    private List<String> types;
 
     public Favourites() {
     }
@@ -39,7 +38,6 @@ public class Favourites extends BaseObservable implements Parcelable {
         this.priceLevel = priceLevel;
         this.types = types;
     }
-
 
     protected Favourites(Parcel in) {
         if (in.readByte() == 0) {
@@ -73,21 +71,12 @@ public class Favourites extends BaseObservable implements Parcelable {
     };
 
     @Bindable
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    @Bindable
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Bindable
@@ -98,13 +87,14 @@ public class Favourites extends BaseObservable implements Parcelable {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
     @Bindable
-    public String getPhotoLink() {
-        return photoLink;
+    public String getImg() {
+        return img;
     }
 
-    public void setPhotoLink(String photoLink) {
-        this.photoLink = photoLink;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Bindable
@@ -117,18 +107,19 @@ public class Favourites extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public String getWebsite() {
-        return website;
+    public String getWebsiteUri() {
+        return websiteUri;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setWebsiteUri(String websiteUri) {
+        this.websiteUri = websiteUri;
     }
 
     @Bindable
     public String getPriceLevel() {
         return priceLevel;
     }
+
 
     public void setPriceLevel(String priceLevel) {
         this.priceLevel = priceLevel;
@@ -142,7 +133,6 @@ public class Favourites extends BaseObservable implements Parcelable {
     public void setTypes(String types) {
         this.types = types;
     }
-
 
     @Override
     public int describeContents() {

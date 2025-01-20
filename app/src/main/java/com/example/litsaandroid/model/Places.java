@@ -97,6 +97,17 @@ public class Places extends BaseObservable implements Parcelable {
         return types;
     }
 
+    @Bindable
+    public String getTypesAsString(){
+        String listStrings = getTypes().toString();
+        listStrings= listStrings.replace("[", "")
+                .replace("]", "")
+                .replace("_", " ")
+                .replace(",", "");
+
+        return listStrings;
+    }
+
     public void setTypes(List<String> types) {
         this.types = types;
     }
