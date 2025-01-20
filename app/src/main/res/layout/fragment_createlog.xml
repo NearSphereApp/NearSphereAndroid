@@ -4,18 +4,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flcreate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.LogFragment">
+    tools:context=".user.CreateLogFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blueSky">
 
-        <TextView
+        <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/createAccount"
@@ -27,10 +30,12 @@
             android:layout_marginStart="30sp"
             android:layout_marginEnd="30sp"
             />
-        <TextView
+        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:inputType="textPassword"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/email"
             android:layout_marginTop="30sp"
@@ -42,14 +47,35 @@
             android:layout_marginStart="30sp"
             android:layout_marginEnd="30sp"
             />
-        <TextView
+        <EditText
             android:id="@+id/passwordrepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:inputType="textPassword"
             android:textSize="20sp"
             app:layout_constraintTop_toBottomOf="@+id/password"
             android:layout_marginTop="30sp"
             android:hint="@string/confirm_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            android:background="@drawable/searchbar"
+            android:layout_marginStart="30sp"
+            android:layout_marginEnd="30sp"
+            />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="username"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/passwordrepeat"
+            android:layout_marginTop="30sp"
+
+            android:hint="Choose a username"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"

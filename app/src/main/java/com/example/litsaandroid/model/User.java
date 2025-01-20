@@ -11,26 +11,38 @@ import com.example.litsaandroid.BR;
 
 public class User extends BaseObservable implements Parcelable {
 
-    private String name;
+    long id;
+    private String display_name;
     private String email;
     private String password;
 
     public User() {
     }
 
+    public User(long id, String displayName, String email) {
+        this.id = id;
+        this.display_name = displayName;
+        this.email = email;
+    }
+
     public User(String name, String email, String password) {
-        this.name = name;
+        this.display_name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
     @Bindable
     public String getName() {
-        return name;
+        return display_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.display_name = name;
         notifyPropertyChanged(BR.name);
     }
 
@@ -54,6 +66,22 @@ public class User extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.password);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return display_name;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.display_name = displayName;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -62,12 +90,12 @@ public class User extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(email);
-        dest.writeString(name);
+        dest.writeString(display_name);
         dest.writeString(password);
     }
 
     protected User(Parcel in) {
-    name = in.readString();
+    display_name = in.readString();
     email= in.readString();
     password = in.readString();
     }

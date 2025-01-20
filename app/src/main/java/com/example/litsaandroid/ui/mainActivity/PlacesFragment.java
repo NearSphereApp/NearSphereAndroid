@@ -1,4 +1,4 @@
-package com.example.litsaandroid;
+package com.example.litsaandroid.ui.mainActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.litsaandroid.R;
 import com.example.litsaandroid.databinding.FragmentPlacesBinding;
 import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.model.SearchParameters;
