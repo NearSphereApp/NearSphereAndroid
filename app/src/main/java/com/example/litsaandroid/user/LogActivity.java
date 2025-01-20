@@ -1,5 +1,6 @@
 package com.example.litsaandroid.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.User;
 import com.example.litsaandroid.model.UserResponse;
-import com.example.litsaandroid.ui.mainActivity.HomeFragment;
+import com.example.litsaandroid.ui.mainActivity.HomeActivity;
+import com.example.litsaandroid.ui.mainActivity.MainActivity;
+import com.example.litsaandroid.ui.mainActivity.Splash;
 
 import java.util.Objects;
 
@@ -46,7 +49,6 @@ public class LogActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragment home = new HomeFragment();
                 String email = emailbox.getText().toString();
                 String password = passwordbox.getText().toString();
                 user.setEmail(email);
@@ -62,10 +64,8 @@ public class LogActivity extends AppCompatActivity {
                 //if login is successful we move to the HomeFragment
                 //TODO
 //                if (viewModel.isLoginValid(response)){
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fllogin, home)
-                            .commit();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
 //            } else {
 //                      Toast.makeText(getApplicationContext(),"Log in not successful, try again",Toast.LENGTH_SHORT).show();
 //                  }

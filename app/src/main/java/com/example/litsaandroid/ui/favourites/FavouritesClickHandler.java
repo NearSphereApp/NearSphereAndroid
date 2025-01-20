@@ -19,9 +19,9 @@ public class FavouritesClickHandler {
         this.favouritesViewModel = favouritesViewModel;
     }
 
-    public void onFavouriteButtonClicked(View view){
-        favouritesViewModel.deleteFavourites(USERID, FAVOURITESID);
-    }
+//    public void onFavouriteButtonClicked(View view){
+//        favouritesViewModel.deleteFavourites(USERID, FAVOURITESID);
+//    }
 
     }
 

@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mainActivity.HomeFragment">
+    tools:context=".ui.mainActivity.HomeActivity">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main"
     android:layout_width="match_parent"

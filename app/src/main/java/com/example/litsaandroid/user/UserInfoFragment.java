@@ -80,10 +80,6 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View v) {
                 viewModel.editUser(finalUser);
 
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.editUser(user);
 
                 Intent intent = new Intent(getContext(), Splash.class);
                 startActivity(intent);

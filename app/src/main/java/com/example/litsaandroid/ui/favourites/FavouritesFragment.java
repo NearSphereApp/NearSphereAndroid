@@ -62,18 +62,18 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         clickHandler = new FavouritesClickHandler(this.getContext(), favourites, favouritesViewModel);
         binding.setFavourites(favourites);
         binding.setClickhandlers(clickHandler);
-        getFavouritePlaces();
+//        getFavouritePlaces();
         setupRecyclerView();
     }
 
-    private void getFavouritePlaces(){
-        favouritesViewModel.getAllFavourites(user.GETID, passedFavourite).observe(getViewLifecycleOwner(), new Observer<List<Favourites>>() {
-            @Override
-            public void onChanged(List<Favourites> favourites) {
-                favouritesList = (ArrayList<Favourites>) favourites;
-            }
-        });
-    }
+//    private void getFavouritePlaces(){
+//        favouritesViewModel.getAllFavourites(user.GETID, passedFavourite).observe(getViewLifecycleOwner(), new Observer<List<Favourites>>() {
+//            @Override
+//            public void onChanged(List<Favourites> favourites) {
+//                favouritesList = (ArrayList<Favourites>) favourites;
+//            }
+//        });
+//    }
     private void setupRecyclerView() {
         adapter = new Adapter(new ArrayList<>(), this);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
