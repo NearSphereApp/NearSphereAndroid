@@ -54,6 +54,21 @@
             android:text="@={User.email}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/password"
+            />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginTop="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:hint="@string/change_password"
+            android:text="@={User.password}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/update"
             />
         <Button
             android:id="@+id/update"
@@ -64,7 +79,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/logOut"
-            app:layout_constraintTop_toBottomOf="@id/email"/>
+            app:layout_constraintTop_toBottomOf="@id/password"/>
         <Button
             android:id="@+id/logOut"
             android:layout_width="wrap_content"
@@ -73,18 +88,9 @@
             android:backgroundTint="@color/bluewelcome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/reset_password"
-            app:layout_constraintTop_toBottomOf="@id/update"/>
-        <Button
-            android:id="@+id/reset_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_password"
-            android:backgroundTint="@color/bluewelcome"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/deleteUser"
-            app:layout_constraintTop_toBottomOf="@id/logOut"/>
+            app:layout_constraintTop_toBottomOf="@id/update"/>
+
         <Button
             android:id="@+id/deleteUser"
             android:layout_width="wrap_content"
@@ -94,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reset_password"/>
+            app:layout_constraintTop_toBottomOf="@id/logOut"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
