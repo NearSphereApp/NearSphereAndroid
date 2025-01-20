@@ -11,6 +11,7 @@ import com.example.litsaandroid.BR;
 
 public class User extends BaseObservable implements Parcelable {
 
+    long id;
     private String displayName;
     private String email;
     private String password;
@@ -57,6 +58,22 @@ public class User extends BaseObservable implements Parcelable {
     public void setPassword(String password) {
         this.password = password;
         notifyPropertyChanged(BR.password);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override

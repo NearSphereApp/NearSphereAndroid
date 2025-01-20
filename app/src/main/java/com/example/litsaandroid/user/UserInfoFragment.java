@@ -55,13 +55,15 @@ public class UserInfoFragment extends Fragment {
         email.setText(user.getEmail());
 
         //logic for update button
-//        updateButton = view.findViewById(R.id.update);
-//        updateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewModel.
-//            }
-//        });
+        updateButton = view.findViewById(R.id.update);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.editUser(user);
+                Intent intent = new Intent(getContext(), Splash.class);
+                startActivity(intent);
+            }
+        });
 
         //logic for logout button
         outButton = view.findViewById(R.id.logOut);
@@ -75,6 +77,7 @@ public class UserInfoFragment extends Fragment {
         });
 
         //logic for delete button
+        //might need an endpoint in the backend for deleting user
         deleteAccountButton = view.findViewById(R.id.deleteUser);
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override

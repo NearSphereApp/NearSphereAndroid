@@ -92,5 +92,28 @@ public class UserRepository {
 
         return userResponse;
     }
-    public
+    public User editUser (User user){
+        User updatedUser = new User();
+        Call call = userAPIService.editUser(user.getId(), user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful() && response.body() != null) {
+               User useResponse = response.body();
+                updatedUser.setDisplayName(useResponse.getDisplayName());
+                updatedUser.setPassword(useResponse.getPassword());
+                    Toast.makeText(application.getApplicationContext(), "User updated successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(application.getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.e("POST onFailure", t.getMessage());
+            }
+        });
+        return updatedUser;
+    }
 }
