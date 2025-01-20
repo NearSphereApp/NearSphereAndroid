@@ -6,8 +6,11 @@
     >
     <data>
         <variable
-            name="Places"
-            type="com.example.litsaandroid.model.Places" />
+            name="Favourites"
+            type="com.example.litsaandroid.model.Favourites" />
+        <variable
+            name="clickhandlers"
+            type="com.example.litsaandroid.ui.favourites.FavouritesClickHandler"/>
     </data>
 
 
@@ -39,10 +42,10 @@
                 android:layout_height="36dp"
                 android:layout_marginTop="4dp"
                 android:hint="@string/title"
-                android:text="@{Places.displayName}"
+                android:text="@{Favourites.displayName}"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/floatingActionButtonFavourites"
+                app:layout_constraintEnd_toStartOf="@id/favouritesButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.133" />
@@ -53,7 +56,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/cardview_dark_background"
-                android:text="@{Places.types.toString()}"
+                android:text="@{}"
                 android:textSize="15sp"
                 card_view:layout_constraintBottom_toTopOf="@id/price"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -76,14 +79,12 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButtonFavourites"
+                android:id="@+id/favouritesButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="40dp"
-                android:tooltipText="Add to favourites"
                 android:src="@drawable/favourites_unclicked"
-                android:drawableTint="#ff0000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
