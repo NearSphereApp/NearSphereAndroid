@@ -30,7 +30,8 @@ public class UserRepository {
     }
 
 
-    public MutableLiveData<User> getUser(String token) {
+    public User getUser(String token) {
+        User newUser = new User();
         Call<User> call = userAPIService.getUser(token);
         call.enqueue(new Callback<User>() {
             @Override
@@ -38,7 +39,9 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.i("API Response", response.body().toString());
                     User user = response.body();
-                    mutableLiveData.setValue(user);
+                    newUser.setEmail(user.getEmail());
+                    newUser.setName(user.getName());
+                    newUser.setId(user.getId());
                 } else {
                     Log.e("API Response", "Response unsuccessful or empty");
                 }
@@ -49,7 +52,7 @@ public class UserRepository {
                 Log.e("API Error", Objects.requireNonNull(t.getMessage()));
             }
         });
-        return mutableLiveData;
+        return newUser;
     }
 
     public void addUser(User user) {

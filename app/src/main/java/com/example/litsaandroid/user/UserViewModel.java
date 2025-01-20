@@ -18,7 +18,7 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository = new UserRepository(application);
     }
 
-    public LiveData<User> getUser(String token) {
+    public User getUser(String token) {
         return userRepository.getUser(token);
     }
     public void addUser (User user){

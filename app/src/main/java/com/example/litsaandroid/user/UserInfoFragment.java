@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.TokenStorage;
@@ -22,7 +24,7 @@ import com.example.litsaandroid.ui.mainActivity.Splash;
 public class UserInfoFragment extends Fragment {
 
     EditText name;
-    EditText email;
+    TextView email;
     Button updateButton;
     Button outButton;
     Button passwordResetButton;
@@ -44,12 +46,20 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            tokenStorage = new TokenStorage(getContext());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
 
         //Displaying user name and email
        String token = tokenStorage.getToken();
        name = view.findViewById(R.id.name);
        email = view.findViewById(R.id.email);
-       User user = viewModel.getUser(token).getValue();
+       User user = viewModel.getUser(token);
         assert user != null;
         name.setText(user.getName());
         email.setText(user.getEmail());
