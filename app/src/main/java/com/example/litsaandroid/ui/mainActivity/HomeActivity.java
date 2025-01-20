@@ -1,8 +1,12 @@
 package com.example.litsaandroid.ui.mainActivity;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,12 +22,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.litsaandroid.R;
-import com.example.litsaandroid.model.Places;
 import com.example.litsaandroid.model.SearchParameters;
 import com.example.litsaandroid.ui.mainActivity.MainActivityViewModel;
 import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.example.litsaandroid.ui.mainActivity.PlacesFragment;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.slider.Slider;
@@ -32,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CheckBox booksCheck;
     private CheckBox nightlifeCheck;
@@ -63,43 +68,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     Log.i("radius", String.valueOf(radius));
                 }
             };
-    public HomeFragment() {
-    }
+
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.fragment_home);
 
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
-
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-        slider = view.findViewById(R.id.continuousSlider);
+        slider = findViewById(R.id.continuousSlider);
         slider.addOnSliderTouchListener(touchListener);
 
 
 
-        CheckBox artCheck = view.findViewById(R.id.CheckBoxArt);
-        booksCheck = view.findViewById(R.id.CheckBoxBooks);
-        nightlifeCheck = view.findViewById(R.id.CheckBoxNight);
-        natureCheck = view.findViewById(R.id.CheckBoxNature);
-        religionCheck = view.findViewById(R.id.CheckBoxReligion);
-        foodCheck = view.findViewById(R.id.CheckBoxFood);
-        spaCheck = view.findViewById(R.id.CheckBoxSpa);
-        footballCheck = view.findViewById(R.id.CheckBoxFootball);
-        allCheck = view.findViewById(R.id.CheckBoxALL);
+        CheckBox artCheck = findViewById(R.id.CheckBoxArt);
+        booksCheck = findViewById(R.id.CheckBoxBooks);
+        nightlifeCheck = findViewById(R.id.CheckBoxNight);
+        natureCheck = findViewById(R.id.CheckBoxNature);
+        religionCheck =findViewById(R.id.CheckBoxReligion);
+        foodCheck = findViewById(R.id.CheckBoxFood);
+        spaCheck = findViewById(R.id.CheckBoxSpa);
+        footballCheck = findViewById(R.id.CheckBoxFootball);
+        allCheck = findViewById(R.id.CheckBoxALL);
 
-        TableLayout checkTable = view.findViewById(R.id.check_table);
+        TableLayout checkTable = findViewById(R.id.check_table);
 
         keyWord = new ArrayList<>();
 
@@ -190,8 +183,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
         searchParameters.setKeywords(keyWord);
 
+        //extracting Secret from metadata
+        ApplicationInfo ai = null;
+        try {
+            ai = getApplicationContext().getPackageManager()
+                    .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String key = ai.metaData.getString("KEY");
+        assert key != null;
+        Log.i("TAG", key);
+        //initialise Places
+        com.google.android.libraries.places.api.Places.initializeWithNewPlacesApiEnabled(getApplicationContext(),key);
+        PlacesClient placesClient = Places.createClient(this);
 
-        AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(view.findViewById(R.id.autocomplete_fragment));
+        AutocompleteSupportFragment autocompleteFragment = FragmentManager.findFragment(findViewById(R.id.autocomplete_fragment));
         autocompleteFragment.setPlaceFields(List.of(Place.Field.SHORT_FORMATTED_ADDRESS));
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -216,7 +223,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
 
 
-        Button button = view.findViewById(R.id.submit_button);
+        Button button = findViewById(R.id.submit_button);
         button.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -233,8 +240,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         args.putParcelable("search_parameters", searchParameters);
         placesFragment.setArguments(args);
 
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.flFragment, placesFragment).addToBackStack(null).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                 .replace(R.id.flHome, placesFragment)
+                .addToBackStack(null).commit();
     }
 
 }

@@ -88,7 +88,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
             newFavourite.setPriceLevel(place.getPriceLevel());
             newFavourite.setTypes(place.getTypes().toString());
 
-            favouritesViewModel.addFavourites(GET USER ID, newFavourite);
+//            favouritesViewModel.addFavourites(GET USER ID, newFavourite);
 
             Bundle args = new Bundle();
             args.putParcelable("favourites_body", newFavourite);
