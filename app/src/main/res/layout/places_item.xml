@@ -33,57 +33,72 @@
             android:padding="4dp">
 
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="237dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="4dp"
-                android:hint="@string/title"
-                android:text="@{Places.displayName}"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/floatingActionButtonFavourites"
+            <ImageView
+                android:id="@+id/places_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.133" />
+                card_view:layout_constraintVertical_bias="0.714"
+                tools:src="@drawable/ic_user_foreground" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="289dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/title"
+                android:text="@{Places.displayName.toUpperCase()}"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/floatingActionButtonFavourites"
+                app:layout_constraintStart_toEndOf="@id/places_image"
+                app:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0" />
 
             <TextView
                 android:id="@+id/tag"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
+                android:layout_width="189dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/cardview_dark_background"
-                android:text="@{Places.types.toString()}"
+                android:hint="Keyword"
+                android:text="@{Places.typesAsString}"
                 android:textSize="15sp"
-                card_view:layout_constraintBottom_toTopOf="@id/price"
-                card_view:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0" />
 
             <ImageView
                 android:id="@+id/price"
-                android:layout_width="50dp"
-                android:layout_height="20dp"
+                android:layout_width="38dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/cardview_dark_background"
                 android:contentDescription="@string/show_average_price"
-                android:src="@drawable/ic_price_foreground"
+                android:src="@drawable/four_pound"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@id/tag"
-                card_view:layout_constraintEnd_toEndOf="@id/tag"
-                app:layout_constraintTop_toBottomOf="@id/tag"
-                card_view:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toEndOf="@id/tag"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintVertical_bias="0.97" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButtonFavourites"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:tooltipText="Add to favourites"
-                android:src="@drawable/favourites_unclicked"
+                android:layout_width="54dp"
+                android:layout_height="89dp"
+                android:layout_marginTop="52dp"
                 android:drawableTint="#ff0000"
+                android:src="@drawable/favourites_unclicked"
+                android:tooltipText="Add to favourites"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
