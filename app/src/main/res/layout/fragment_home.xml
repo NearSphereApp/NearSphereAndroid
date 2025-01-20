@@ -5,7 +5,7 @@
     android:id="@+id/flHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mainActivity.HomeActivity">
+    tools:context=".ui.mainActivity.HomeFragment">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -17,6 +17,20 @@
         android:layout_width="wrap_content"
         android:layout_height="0sp"
         android:src="@drawable/city_nature"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NearSphere"
+        android:fontFamily="@font/font"
+        android:gravity="center"
+        android:textColorHint="@color/bluewelcome"
+        android:textColor="@color/white"
+        android:textSize="69sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/search_bar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +113,7 @@
                 android:id="@+id/CheckBoxArt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/culture_entertainment" />
+                android:text="Culture" />
             <CheckBox
                 android:id="@+id/CheckBoxBooks"
                 android:layout_width="wrap_content"
@@ -139,7 +153,7 @@
                 android:id="@+id/CheckBoxSpa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/health_and_wellness" />
+                android:text="Wellness" />
             <CheckBox
                 android:id="@+id/CheckBoxFootball"
                 android:layout_width="wrap_content"
