@@ -4,10 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.example.litsaandroid.model.User;
-import com.example.litsaandroid.model.UserResponse;
 import com.example.litsaandroid.repositories.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
@@ -18,19 +16,23 @@ public class UserViewModel extends AndroidViewModel {
         this.userRepository = new UserRepository(application);
     }
 
-    public User getUser(String token) {
-        return userRepository.getUser(token);
+
+    public User getUser() throws Exception {
+        return userRepository.getUser();
+
     }
     public void addUser (User user){
     userRepository.addUser(user);
     }
-    public UserResponse logUser(User user) throws Exception {
-       return userRepository.logUser(user);
+    public void logUser(User user) throws Exception {
+        userRepository.logUser(user);
 
     }
-    public Boolean isLoginValid (UserResponse userResponse){
-        return userResponse.getToken().isEmpty();
-    }
+
+//    public Boolean isLoginValid (UserResponse userResponse){
+//        return userResponse.getToken() != null;
+//    }
+
 
     public User editUser(User user){
         return userRepository.editUser(user);

@@ -2,6 +2,7 @@ package com.example.litsaandroid.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -23,6 +24,7 @@ public class TokenStorage {
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
+            Log.i("TOKEN",getToken());
         }
 
         public void saveToken(String token) {
