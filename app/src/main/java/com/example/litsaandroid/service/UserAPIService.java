@@ -18,11 +18,14 @@ public interface UserAPIService {
     Call<User> getUser(@Header("token") String token);
 
     @POST("auth/login")
-    Call<UserResponse> loginToken (@Body User user);
+    Call<UserResponse> loginToken(@Body User user);
 
     @POST("auth/signup")
-    Call<StatusLine> create (@Body User user);
+    Call<StatusLine> create(@Body User user);
 
     @PATCH("user/{id}")
-    Call<User> editUser (@Path("id")long id,@Body User user);
+    Call<User> editUser(@Path("id") long id, @Body User user);
+
+    @POST("password/request-password-reset")
+    Call<StatusLine> resetPassword(@Body String email);
 }

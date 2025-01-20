@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -28,6 +30,23 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            TokenStorage tokenStorage;
+            try {
+                tokenStorage = new TokenStorage(this);
+                String token = tokenStorage.getToken();
+
+                if (token != null && !token.isEmpty()) {
+                    navigateToHome();
+                } else {
+                    navigateToLog();
+                }
+            } catch (Exception e) {
+                Log.i("EXCEPTION", Objects.requireNonNull(e.getMessage()));
+                navigateToLog();
+            }
+        }, 2000);
 
         // Check for stored token
         TokenStorage tokenStorage;

@@ -37,6 +37,9 @@ public class UserViewModel extends AndroidViewModel {
     public User editUser(User user){
         return userRepository.editUser(user);
     }
+    public void resetPassword(String email){
+        userRepository.resetPassword(email);
+    }
 }
 
 

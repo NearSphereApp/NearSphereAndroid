@@ -62,7 +62,7 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         clickHandler = new FavouritesClickHandler(this.getContext(), favourites, favouritesViewModel);
         binding.setFavourites(favourites);
         binding.setClickhandlers(clickHandler);
-        getFavouritePlaces();
+     //   getFavouritePlaces();
         setupRecyclerView();
     }
 
@@ -73,7 +73,7 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         binding.recyclerview.setAdapter(adapter);
     }
 
-    }
+
 
 //    private void getFavouritePlaces(){
 //        favouritesViewModel.getAllFavourites(user.GETID, passedFavourite).observe(getViewLifecycleOwner(), new Observer<List<Favourites>>() {
