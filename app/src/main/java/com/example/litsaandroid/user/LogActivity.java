@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.User;
 import com.example.litsaandroid.model.UserResponse;
 import com.example.litsaandroid.ui.mainActivity.HomeFragment;
+
+import java.util.Objects;
 
 public class LogActivity extends AppCompatActivity {
 
@@ -48,22 +51,25 @@ public class LogActivity extends AppCompatActivity {
                 String password = passwordbox.getText().toString();
                 user.setEmail(email);
                 user.setPassword(password);
-                UserResponse response;
+//                UserResponse response;
+
                 try {
-                    response = viewModel.logUser(user);
+                    viewModel.logUser(user);
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    Log.i("EXCEPTION", Objects.requireNonNull(e.getMessage()));
                 }
+
                 //if login is successful we move to the HomeFragment
-                if (viewModel.isLoginValid(response)){
+                //TODO
+//                if (viewModel.isLoginValid(response)){
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fllogin, home)
                             .commit();
-            } else {
-                      Toast.makeText(getApplicationContext(),"Log in not successful, try again",Toast.LENGTH_SHORT).show();
-                  }
-            }
+//            } else {
+//                      Toast.makeText(getApplicationContext(),"Log in not successful, try again",Toast.LENGTH_SHORT).show();
+//                  }
+           }
         });
 
         //logic for create button

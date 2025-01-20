@@ -30,7 +30,9 @@ public class UserRepository {
     }
 
 
-    public User getUser(String token) {
+    public User getUser() throws Exception {
+        TokenStorage tokenStorage = new TokenStorage(application.getApplicationContext());
+        String token = tokenStorage.getToken();
         User newUser = new User();
         Call<User> call = userAPIService.getUser(token);
         call.enqueue(new Callback<User>() {
@@ -60,13 +62,16 @@ public class UserRepository {
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call call, Response response) {
-                Toast.makeText(application.getApplicationContext(), "You're successfully registered", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(application.getApplicationContext(), "You're successfully registered", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(application.getApplicationContext(), "Unable to create new User", Toast.LENGTH_SHORT).show();
 
+                }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(), "Unable to create new User", Toast.LENGTH_SHORT).show();
                 Log.e("POST onFailure", t.getMessage());
             }
         });
@@ -83,6 +88,9 @@ public class UserRepository {
                     String token = response.body().getToken(); // Extract token
                     tokenStorage.saveToken(token);// Save token securely
                     userResponse.setToken(token);
+                }else{
+                    Toast.makeText(application.getApplicationContext(), "User email or password incorrect", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
