@@ -56,31 +56,35 @@
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             />
     </LinearLayout>
+
     <TextView
         android:id="@+id/radius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Radius :"
-        android:textSize="15sp"
         android:layout_marginStart="15sp"
-        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        android:text="Radius :"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/interests"
+        app:layout_constraintEnd_toStartOf="@id/continuousSlider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/continuousSlider"/>
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
+
     <com.google.android.material.slider.Slider
         android:id="@+id/continuousSlider"
-        android:layout_width="0sp"
-        android:layout_height="0sp"
-        app:thumbColor="@color/bluewelcome"
-        app:thumbStrokeColor="@color/bluewelcome"
+        android:layout_width="328dp"
+        android:layout_height="57dp"
+        android:value="5.0"
         android:valueFrom="0.0"
         android:valueTo="50.0"
-        android:value="5.0"
-        app:layout_constraintTop_toBottomOf="@id/search_bar"
         app:layout_constraintBottom_toTopOf="@id/interests"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/radius"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintVertical_bias="0.521"
+        app:thumbColor="@color/bluewelcome"
+        app:thumbStrokeColor="@color/bluewelcome" />
+
     <TextView
         android:id="@+id/interests"
         android:layout_width="match_parent"
