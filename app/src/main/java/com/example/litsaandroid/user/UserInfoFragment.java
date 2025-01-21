@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.TokenStorage;
@@ -65,17 +66,19 @@ public class UserInfoFragment extends Fragment {
        String token = response.getToken();
        name = view.findViewById(R.id.name);
        email = view.findViewById(R.id.email);
+        String nameUser = name.getText().toString();
+        String emailUser = name.getText().toString();
+        User user = new User("Maria","mariasantos@hotmail.com");
+//        try {
+//            user = viewModel.getUser();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
-        User user = new User();
-        try {
-            user = viewModel.getUser();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        assert user != null;
+//        assert user != null;
         name.setText(user.getName());
         email.setText(user.getEmail());
+
 
         //logic for update button
         updateButton = view.findViewById(R.id.update);
@@ -84,8 +87,10 @@ public class UserInfoFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.editUser(finalUser);
-
+//                viewModel.editUser(finalUser);
+            User newUser = new User(emailUser,nameUser);
+            name.setText(newUser.getName());
+            email.setText(newUser.getEmail());
 
                 Intent intent = new Intent(getContext(), Splash.class);
                 startActivity(intent);
@@ -97,7 +102,7 @@ public class UserInfoFragment extends Fragment {
         outButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tokenStorage.clearToken();
+//                tokenStorage.clearToken();
                 Intent intent = new Intent(getContext(), LogActivity.class);
                 startActivity(intent);
             }
@@ -109,18 +114,22 @@ public class UserInfoFragment extends Fragment {
         deleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tokenStorage.clearToken();
+//                tokenStorage.clearToken();
                 Intent intent = new Intent(getContext(), Splash.class);
                 startActivity(intent);
+                Toast.makeText(getContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
             }
         });
 
         //logic for passwordReset
+        PasswordEditFragment passwordEditFragment = new PasswordEditFragment();
         passwordResetButton = view.findViewById(R.id.password);
         passwordResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.flHome, passwordEditFragment).addToBackStack(null).commit();
             }
         });
     }

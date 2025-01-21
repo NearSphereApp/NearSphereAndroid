@@ -13,6 +13,8 @@ public class TokenStorage {
         private final SharedPreferences sharedPreferences;
 
         public TokenStorage(Context context) throws Exception {
+
+            saveToken(UserResponse.getToken());
             MasterKey masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build();

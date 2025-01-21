@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.litsaandroid.R;
 import com.example.litsaandroid.model.User;
@@ -49,16 +50,22 @@ public class PasswordEditFragment extends Fragment {
         User user = new User();
         EditText passwordbox = view.findViewById(R.id.password);
         String password = passwordbox.getText().toString();
+
         EditText passRepeatBox = view.findViewById(R.id.passwordrepeat);
+        String passwordRepeat = passRepeatBox.getText().toString();
+
         Button button = view.findViewById(R.id.button);
         user.setPassword(password);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.editUser(user);
-
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+//                viewModel.editUser(user);
+                if (passwordRepeat.equals(password)) {
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
