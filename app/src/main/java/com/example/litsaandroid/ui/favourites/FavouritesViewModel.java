@@ -7,7 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.litsaandroid.model.Favourites;
+import com.example.litsaandroid.repositories.PlacesRepository;
 import com.example.litsaandroid.repositories.UserFavouriteRepository;
+import com.example.litsaandroid.ui.mainActivity.Adapter;
 
 import java.util.List;
 
@@ -15,10 +17,10 @@ public class FavouritesViewModel extends AndroidViewModel {
 
     private UserFavouriteRepository userFavouriteRepository;
 
-
     public FavouritesViewModel(@NonNull Application application) {
         super(application);
         this.userFavouriteRepository = new UserFavouriteRepository(application);
+
     }
 
     public MutableLiveData<List<Favourites>> getAllFavourites(long userId){

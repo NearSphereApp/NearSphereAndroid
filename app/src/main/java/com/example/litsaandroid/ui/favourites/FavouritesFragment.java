@@ -28,14 +28,13 @@ import java.util.List;
 
 public class FavouritesFragment extends Fragment implements RecyclerViewInterface {
 
-    private RecyclerView recyclerView;
     private ArrayList<Favourites> favouritesList;
-    private Favourites favourites;
-    private Adapter adapter;
+    private FavouritesAdapter adapter;
     private FragmentFavouritesBinding binding;
+    private RecyclerView recyclerView;
+    private Favourites favourites;
     private FavouritesViewModel favouritesViewModel;
     private FavouritesClickHandler clickHandler;
-    private Favourites passedFavourite;
     private User user;
 
     public FavouritesFragment() {
@@ -44,8 +43,6 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        assert getArguments() != null;
-        passedFavourite = getArguments().getParcelable("favourites_body");
     }
 
     @Override
@@ -62,32 +59,27 @@ public class FavouritesFragment extends Fragment implements RecyclerViewInterfac
         clickHandler = new FavouritesClickHandler(this.getContext(), favourites, favouritesViewModel);
         binding.setFavourites(favourites);
         binding.setClickhandlers(clickHandler);
-     //   getFavouritePlaces();
+        getFavouritePlaces();
         setupRecyclerView();
     }
 
- 
     private void setupRecyclerView() {
-        adapter = new Adapter(new ArrayList<>(), this);
+        adapter = new FavouritesAdapter(new ArrayList<>(), this.getContext());
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerview.setAdapter(adapter);
     }
 
-
-
-//    private void getFavouritePlaces(){
-//        favouritesViewModel.getAllFavourites(user.GETID, passedFavourite).observe(getViewLifecycleOwner(), new Observer<List<Favourites>>() {
-//            @Override
-//            public void onChanged(List<Favourites> favourites) {
-//                favouritesList = (ArrayList<Favourites>) favourites;
-//            }
-//        });
-//    }
-
+    private void getFavouritePlaces(){
+        favouritesViewModel.getAllFavourites(1L).observe(getViewLifecycleOwner(), favourites ->  {
+            if(favourites != null){
+                favouritesList = new ArrayList<>(favourites);
+                adapter.setFavouritesList(favouritesList);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
     @Override
     public void onItemClick(int position) {
 
     }
-
-
 }
