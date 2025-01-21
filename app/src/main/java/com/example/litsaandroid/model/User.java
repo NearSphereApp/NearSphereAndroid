@@ -25,6 +25,11 @@ public class User extends BaseObservable implements Parcelable {
         this.email = email;
     }
 
+    public User(String display_name, String email) {
+        this.display_name = display_name;
+        this.email = email;
+    }
+
     public User(String name, String email, String password) {
         this.display_name = name;
         this.email = email;

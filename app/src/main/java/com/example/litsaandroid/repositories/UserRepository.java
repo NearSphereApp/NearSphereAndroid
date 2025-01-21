@@ -80,7 +80,6 @@ public class UserRepository {
     }
 
     public void logUser(UserRequest user) throws Exception {
-        TokenStorage tokenStorage = new TokenStorage(application.getApplicationContext());
         UserResponse userResponse= new UserResponse();
         Call call = userAPIService.loginToken(user);
         call.enqueue(new Callback<UserResponse>() {
@@ -88,12 +87,11 @@ public class UserRepository {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String token = response.body().getToken(); // Extract token
-                    tokenStorage.saveToken(token);// Save token securely
                     userResponse.setToken(token);
-                    Toast.makeText(application.getApplicationContext(), "your token is " + token, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(application.getApplicationContext(), "your token is " + token, Toast.LENGTH_SHORT).show();
 
                 }else{
-                    Toast.makeText(application.getApplicationContext(), "User email or password incorrect", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(application.getApplicationContext(), "User email or password incorrect", Toast.LENGTH_SHORT).show();
 
                 }
             }

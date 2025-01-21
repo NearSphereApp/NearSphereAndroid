@@ -3,7 +3,7 @@ package com.example.litsaandroid.model;
 public class UserResponse {
     private static String token;
 
-    public String getToken() {
+    public static String getToken() {
         return token;
     }
 
