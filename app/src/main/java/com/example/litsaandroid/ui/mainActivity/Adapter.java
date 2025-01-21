@@ -1,8 +1,10 @@
 package com.example.litsaandroid.ui.mainActivity;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     private FavouritesViewModel favouritesViewModel;
     private FavouritesFragment favouritesFragment;
     private final RecyclerViewInterface recyclerViewInterface;
-    private UserViewModel user;
+    private Favourites newFavourite = new Favourites();
+
+    private Application application;
 
     public Adapter(List<Places> placesList, RecyclerViewInterface recyclerViewInterface) {
         this.placesList = placesList;
@@ -77,57 +81,44 @@ public class Adapter extends RecyclerView.Adapter<Adapter.PlacesItemViewHolder> 
     Places place = placesList.get(position);
     holder.binding.setPlaces(place);
 
-//        Glide.with(holder.itemView.getContext())
-//                .load(place.getImg())
-//                .placeholder(R.drawable.place_image)
-//                .fitCenter()
-//                .into(holder.binding.placesImage);
-
-        if(place.getPriceLevel() != null) {
-            switch (place.getPriceLevel()) {
-                case "PRICE_LEVEL_INEXPENSIVE":
-                    holder.binding.price.setImageResource(R.drawable.one_pound);
-                    break;
-                case "PRICE_LEVEL_MODERATE":
-                    holder.binding.price.setImageResource(R.drawable.two_pound);
-                    break;
-                case "PRICE_LEVEL_EXPENSIVE":
-                    holder.binding.price.setImageResource(R.drawable.three_pound);
-                    break;
-                case "PRICE_LEVEL_VERY_EXPENSIVE":
-                    holder.binding.price.setImageResource(R.drawable.four_pound);
-                    break;
-                default:
-                    holder.binding.price.setImageResource(R.drawable.ic_price_foreground);
-            }
-        }
-
-
     FloatingActionButton favouritesButton = holder.binding.floatingActionButtonFavourites;
     favouritesButton.setSelected(true);
     favouritesButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Favourites newFavourite = new Favourites();
 
             newFavourite.setDisplayName(place.getDisplayName());
-//            newFavourite.setPhotoLink(place.getImg());
-//            newFavourite.setFormattedAddress(place.getFormattedAddress());
-//            newFavourite.setWebsite(place.getWebsiteUri());
-//            newFavourite.setPriceLevel(place.getPriceLevel());
-//            newFavourite.setTypes(place.getTypes().toString());
+            newFavourite.setPhotoLink(place.getImg());
+            newFavourite.setFormattedAddress(place.getFormattedAddress());
+            newFavourite.setWebsite(place.getWebsiteUri());
+            newFavourite.setPriceLevel(place.getPriceLevel());
+            newFavourite.setTypes(place.getTypes());
+            newFavourite.setUserId(1L);
 
-            try {
-                User loggedInUser = user.getUser();
-                long loggedInUserId = loggedInUser.getId();
-                favouritesViewModel.addFavourites(loggedInUserId, newFavourite);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            if (place.getPriceLevel() != null) {
+                newFavourite.setPriceLevel(place.getPriceLevel());
+            } else {
+                newFavourite.setPriceLevel("PRICE_LEVEL_UNSPECIFIED");}
 
-            Bundle args = new Bundle();
-            args.putParcelable("favourites_body", newFavourite);
-            favouritesFragment.setArguments(args);
+            if (place.getWebsiteUri() != null) {
+                newFavourite.setPhotoLink(place.getImg());
+            } else {
+                newFavourite.setPhotoLink("empty");}
+
+            if (place.getWebsiteUri() != null) {
+                newFavourite.setWebsite(place.getWebsiteUri());
+            } else {
+                newFavourite.setWebsite("empty");}
+
+                Log.i("favourites", newFavourite.getPhotoLink());
+                Log.i("favourites", newFavourite.getDisplayName());
+                Log.i("favourites", newFavourite.getFormattedAddress());
+                Log.i("favourites", newFavourite.getWebsite());
+                Log.i("favourites", newFavourite.getPriceLevel());
+                Log.i("favourites", newFavourite.getTypesAsString());
+
+            favouritesViewModel = new FavouritesViewModel(new Application());
+            favouritesViewModel.addFavourites(1L, newFavourite);
 
             if(favouritesButton.isSelected()){
                 favouritesButton.setImageResource(R.drawable.fav_click_foreground);

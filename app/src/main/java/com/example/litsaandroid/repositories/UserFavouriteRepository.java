@@ -43,18 +43,20 @@ public class UserFavouriteRepository {
         return mutableLiveData;
     }
 
-    public void addFavourite(long userId, Favourites favourites){
+    public void addFavourite(Long userId, Favourites favourites){
         Call<Favourites> call = userFavouritePlaceApiService.addFavourite(userId, favourites);
 
         call.enqueue(new Callback<Favourites>() {
             @Override
             public void onResponse(Call<Favourites> call, Response<Favourites> response) {
-                Toast.makeText(application.getApplicationContext(), "Added to favourites!", Toast.LENGTH_SHORT).show();
+                Log.i("favourites", "added to favourites");
+//                Toast.makeText(application.getApplicationContext(), "Added to favourites!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Favourites> call, Throwable t) {
-                Toast.makeText(application.getApplicationContext(), "Unable to add to favourites.", Toast.LENGTH_SHORT).show();
+                Log.i("favourites", "unable to add to favourites");
+//                Toast.makeText(application.getApplicationContext(), "Unable to add to favourites.", Toast.LENGTH_SHORT).show();
             }
         });
     }
