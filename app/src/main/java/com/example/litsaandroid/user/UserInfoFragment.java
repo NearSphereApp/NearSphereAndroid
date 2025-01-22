@@ -129,7 +129,7 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View v) {
 
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.flHome, passwordEditFragment).addToBackStack(null).commit();
+                transaction.replace(R.id.flUser, passwordEditFragment).addToBackStack(null).commit();
             }
         });
     }
